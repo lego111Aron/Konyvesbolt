@@ -1,0 +1,605 @@
+DROP TABLE VASARLAS;
+DROP TABLE KESZLET;
+DROP TABLE KONYV;
+DROP TABLE SZERZO;
+DROP TABLE KIADO;
+DROP TABLE ARUHAZ;
+DROP TABLE FELHASZNALO;
+DROP TABLE MUFAJ;
+
+
+CREATE TABLE FELHASZNALO
+(
+    "ID" NUMBER(5,0) NOT NULL ENABLE,
+    "NEV" VARCHAR2(40 BYTE) NOT NULL ENABLE, 
+    "EMAIL" VARCHAR2(40 BYTE) NOT NULL ENABLE, 
+    "JELSZO" VARCHAR2(100 BYTE) NOT NULL ENABLE, 
+    "TORZSVASARLO" NUMBER(1,0), 
+    "ADMIN" NUMBER(1,0), 
+    
+    PRIMARY KEY ("ID") ENABLE
+);
+
+
+CREATE TABLE ARUHAZ
+(   
+    "ID" NUMBER(5,0) NOT NULL ENABLE, 
+    "CIM" VARCHAR2(40 BYTE) NOT NULL ENABLE,
+
+    PRIMARY KEY ("ID") ENABLE
+);
+
+
+CREATE TABLE KIADO 
+(
+    "ID" NUMBER(5,0) NOT NULL ENABLE, 
+    "KIADO_NEV" VARCHAR2(40 BYTE) NOT NULL ENABLE,
+
+    PRIMARY KEY ("ID") ENABLE
+);
+
+
+CREATE TABLE MUFAJ
+(
+    "ID" NUMBER NOT NULL ENABLE,
+    "MUFAJ_NEV" VARCHAR2(40 BYTE) NOT NULL ENABLE,
+    "ALMUFAJ_NEV" VARCHAR2(40 BYTE) NOT NULL ENABLE,
+
+    PRIMARY KEY ("ID") ENABLE
+);
+
+
+CREATE TABLE SZERZO
+(
+    "ID" NUMBER NOT NULL ENABLE,
+    "NEV" VARCHAR2(40 BYTE) NOT NULL ENABLE,
+
+    PRIMARY KEY ("ID") ENABLE
+);
+
+
+CREATE TABLE KONYV
+(
+    "ID" NUMBER NOT NULL ENABLE, 
+    "CIM" VARCHAR2(50 BYTE), 
+    "SZERZO_ID" NUMBER, 
+    "KIADO_ID" NUMBER, 
+    "OLDALSZAM" NUMBER,
+    "LEIRAS" VARCHAR2(256 BYTE),
+    "NYELV" VARCHAR2(20 BYTE),
+    "MUFAJ_ID" NUMBER,
+    "AR" NUMBER,
+    "KIFUTO" NUMBER(1,0) DEFAULT 0 NOT NULL,
+
+    PRIMARY KEY ("ID") ENABLE,
+
+    CONSTRAINT KONYV_SZERZOFK
+        FOREIGN KEY (SZERZO_ID)
+        REFERENCES SZERZO(ID)
+        ON DELETE SET NULL,
+    CONSTRAINT KONYV_KIADOFK
+        FOREIGN KEY (KIADO_ID)
+        REFERENCES KIADO(ID)
+        ON DELETE SET NULL,
+    CONSTRAINT KONYV_MUFAJFK
+        FOREIGN KEY (MUFAJ_ID)
+        REFERENCES MUFAJ(ID)
+        ON DELETE SET NULL
+);
+
+
+CREATE TABLE KESZLET
+(
+    "ARUHAZ_ID" NUMBER NOT NULL ENABLE, 
+    "KONYV_ID" NUMBER NOT NULL ENABLE, 
+    "MENNYISEG" NUMBER NOT NULL ENABLE, 
+    CONSTRAINT KESZLET_ARUHAZFK 
+        FOREIGN KEY (ARUHAZ_ID) 
+        REFERENCES ARUHAZ(ID)
+        ON DELETE CASCADE,
+    CONSTRAINT KESZLET_KONYVFK
+        FOREIGN KEY (KONYV_ID)
+        REFERENCES KONYV(ID)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE VASARLAS
+(
+    "ID" NUMBER(5,0) NOT NULL ENABLE,
+    "DATUM" TIMESTAMP(1) NOT NULL ENABLE,
+    "FELHASZNALO_ID" NUMBER(5,0) NOT NULL ENABLE,
+    "KONYV_ID" NUMBER NOT NULL ENABLE,
+    "SZALLITASI_CIM" VARCHAR2(40 BYTE) NOT NULL ENABLE,
+    "MENNYISEG" NUMBER NOT NULL ENABLE,
+    
+    PRIMARY KEY ("ID") ENABLE,
+     
+    CONSTRAINT VASARLAS_FELHASZNALOFK
+        FOREIGN KEY (FELHASZNALO_ID)
+        REFERENCES FELHASZNALO(ID)
+        ON DELETE CASCADE,
+    CONSTRAINT VASARLAS_KONYVFK
+        FOREIGN KEY (KONYV_ID)
+        REFERENCES KONYV(ID)
+        ON DELETE CASCADE 
+);
+
+
+
+commit;
+
+
+
+INSERT INTO ARUHAZ (ID,CIM) VALUES ('1','6720 Szeged, Dugonics tér 13.'); 
+INSERT INTO ARUHAZ (ID,CIM) VALUES ('2','6722 Szeged, Vitéz u. 28.'); 
+INSERT INTO ARUHAZ (ID,CIM) VALUES ('3','6722 Szeged, Gogol u. 9.'); 
+INSERT INTO ARUHAZ (ID,CIM) VALUES ('4','6725 Szeged, Boldogasszony sgrt. 4.'); 
+INSERT INTO ARUHAZ (ID,CIM) VALUES ('5','6000 Kecskemét, Csányi János krt. 6.'); 
+INSERT INTO ARUHAZ (ID,CIM) VALUES ('6','6000 Kecskemét, Kéttemplom köz 9-11.'); 
+INSERT INTO ARUHAZ (ID,CIM) VALUES ('7','6000 Kecskemét, Dobó István krt. 1.'); 
+INSERT INTO ARUHAZ (ID,CIM) VALUES ('8','6000 Kecskemét, Szövetség tér'); 
+INSERT INTO ARUHAZ (ID,CIM) VALUES ('9','1052 Budapest, Deák Ferenc u. 5.'); 
+INSERT INTO ARUHAZ (ID,CIM) VALUES ('10','1055 Budapest, Kossuth Lajos tér 1-3.'); 
+
+commit;
+
+INSERT INTO FELHASZNALO (ID,NEV,EMAIL,JELSZO,TORZSVASARLO,ADMIN) VALUES ('1','Admin János','admin@admin.com','$2y$10$x5Q0Xt/XP9iGP3RkQGc/6OQfnNopn5L0.Frk9mkVHggEgG5TdsKAK','0','1');
+INSERT INTO FELHASZNALO (ID,NEV,EMAIL,JELSZO,TORZSVASARLO,ADMIN) VALUES ('2','Gipsz Jakab','gipsz_jakab@gmail.com','$2y$10$x5Q0Xt/XP9iGP3RkQGc/6OQfnNopn5L0.Frk9mkVHggEgG5TdsKAK','0','0');
+INSERT INTO FELHASZNALO (ID,NEV,EMAIL,JELSZO,TORZSVASARLO,ADMIN) VALUES ('3','User Ursula','user_ursula@gmail.com','$2y$10$x5Q0Xt/XP9iGP3RkQGc/6OQfnNopn5L0.Frk9mkVHggEgG5TdsKAK','1','0');
+INSERT INTO FELHASZNALO (ID,NEV,EMAIL,JELSZO,TORZSVASARLO,ADMIN) VALUES ('4','Admin András','admin_andras@admin.com','$2y$10$x5Q0Xt/XP9iGP3RkQGc/6OQfnNopn5L0.Frk9mkVHggEgG5TdsKAK','0','1');
+INSERT INTO FELHASZNALO (ID,NEV,EMAIL,JELSZO,TORZSVASARLO,ADMIN) VALUES ('5','K Ábel','kabel@gmail.com','$2y$10$x5Q0Xt/XP9iGP3RkQGc/6OQfnNopn5L0.Frk9mkVHggEgG5TdsKAK','1','0');
+
+commit;
+
+INSERT INTO KIADO (ID,KIADO_NEV) VALUES ('1','Libri Könyvkiadó');
+INSERT INTO KIADO (ID,KIADO_NEV) VALUES ('2','Móra Könyvkiadó');
+INSERT INTO KIADO (ID,KIADO_NEV) VALUES ('3','Helikon Könyvkiadó');
+INSERT INTO KIADO (ID,KIADO_NEV) VALUES ('4','Alexandra Kiadó');
+INSERT INTO KIADO (ID,KIADO_NEV) VALUES ('5','Álomgyár Kiadó');
+INSERT INTO KIADO (ID,KIADO_NEV) VALUES ('6','Kossuth Kiadó');
+INSERT INTO KIADO (ID,KIADO_NEV) VALUES ('7','Metropolis Media');
+INSERT INTO KIADO (ID,KIADO_NEV) VALUES ('8','Magvető Kiadó');
+INSERT INTO KIADO (ID,KIADO_NEV) VALUES ('9','Kriterion Kiadó');
+INSERT INTO KIADO (ID,KIADO_NEV) VALUES ('10','Genius Könyvkiadó');
+
+commit;
+
+INSERT INTO mufaj (id, mufaj_nev, almufaj_nev) VALUES (1, 'szórakoztató irodalom', 'akció, kaland');
+INSERT INTO mufaj (id, mufaj_nev, almufaj_nev) VALUES (2, 'szórakoztató irodalom', 'fantasy');
+INSERT INTO mufaj (id, mufaj_nev, almufaj_nev) VALUES (3, 'szórakoztató irodalom', 'humor');
+INSERT INTO mufaj (id, mufaj_nev, almufaj_nev) VALUES (4, 'szórakoztató irodalom', 'krimi, bűnügyi, thriller');
+INSERT INTO mufaj (id, mufaj_nev, almufaj_nev) VALUES (5, 'szórakoztató irodalom', 'sci - fi');
+INSERT INTO mufaj (id, mufaj_nev, almufaj_nev) VALUES (6, 'szórakoztató irodalom', 'képregény');
+INSERT INTO mufaj (id, mufaj_nev, almufaj_nev) VALUES (7, 'szépirodalom', 'novella, elbeszélés');
+INSERT INTO mufaj (id, mufaj_nev, almufaj_nev) VALUES (8, 'szépirodalom', 'mese');
+INSERT INTO mufaj (id, mufaj_nev, almufaj_nev) VALUES (9, 'szépirodalom', 'történelmi');
+INSERT INTO mufaj (id, mufaj_nev, almufaj_nev) VALUES (10, 'egyéb', 'szakácskönyv');
+
+commit;
+
+INSERT INTO szerzo(id, nev) values (1, 'Szerző 1');
+INSERT INTO szerzo(id, nev) values (2, 'Szerző 2');
+INSERT INTO szerzo(id, nev) values (3, 'Szerző 3');
+INSERT INTO szerzo(id, nev) values (4, 'Szerző 4');
+INSERT INTO szerzo(id, nev) values (5, 'Szerző 5');
+INSERT INTO szerzo(id, nev) values (6, 'Szerző 6');
+INSERT INTO szerzo(id, nev) values (7, 'Szerző 7');
+INSERT INTO szerzo(id, nev) values (8, 'Szerző 8');
+INSERT INTO szerzo(id, nev) values (9, 'Szerző 9');
+INSERT INTO szerzo(id, nev) values (10, 'Szerző 10');
+INSERT INTO szerzo(id, nev) values (11, 'Szerző 11');
+INSERT INTO szerzo(id, nev) values (12, 'Szerző 12');
+INSERT INTO szerzo(id, nev) values (13, 'Szerző 13');
+INSERT INTO szerzo(id, nev) values (14, 'Szerző 14');
+INSERT INTO szerzo(id, nev) values (15, 'Szerző 15');
+INSERT INTO szerzo(id, nev) values (16, 'Szerző 16');
+INSERT INTO szerzo(id, nev) values (17, 'Szerző 17');
+INSERT INTO szerzo(id, nev) values (18, 'Szerző 18');
+INSERT INTO szerzo(id, nev) values (19, 'Szerző 19');
+INSERT INTO szerzo(id, nev) values (20, 'Szerző 20');
+INSERT INTO szerzo(id, nev) values (21, 'Szerző 21');
+INSERT INTO szerzo(id, nev) values (22, 'Szerző 22');
+INSERT INTO szerzo(id, nev) values (23, 'Szerző 23');
+INSERT INTO szerzo(id, nev) values (24, 'Szerző 24');
+INSERT INTO szerzo(id, nev) values (25, 'Szerző 25');
+INSERT INTO szerzo(id, nev) values (26, 'Szerző 26');
+INSERT INTO szerzo(id, nev) values (27, 'Szerző 27');
+INSERT INTO szerzo(id, nev) values (28, 'Szerző 28');
+INSERT INTO szerzo(id, nev) values (29, 'Szerző 29');
+INSERT INTO szerzo(id, nev) values (30, 'Szerző 30');
+INSERT INTO szerzo(id, nev) values (31, 'Szerző 31');
+INSERT INTO szerzo(id, nev) values (32, 'Szerző 32');
+INSERT INTO szerzo(id, nev) values (33, 'Szerző 33');
+INSERT INTO szerzo(id, nev) values (34, 'Szerző 34');
+INSERT INTO szerzo(id, nev) values (35, 'Szerző 35');
+INSERT INTO szerzo(id, nev) values (36, 'Szerző 36');
+INSERT INTO szerzo(id, nev) values (37, 'Szerző 37');
+INSERT INTO szerzo(id, nev) values (38, 'Szerző 38');
+INSERT INTO szerzo(id, nev) values (39, 'Szerző 39');
+INSERT INTO szerzo(id, nev) values (40, 'Szerző 40');
+INSERT INTO szerzo(id, nev) values (41, 'Szerző 41');
+INSERT INTO szerzo(id, nev) values (42, 'Szerző 42');
+INSERT INTO szerzo(id, nev) values (43, 'Szerző 43');
+INSERT INTO szerzo(id, nev) values (44, 'Szerző 44');
+INSERT INTO szerzo(id, nev) values (45, 'Szerző 45');
+INSERT INTO szerzo(id, nev) values (46, 'Szerző 46');
+INSERT INTO szerzo(id, nev) values (47, 'Szerző 47');
+INSERT INTO szerzo(id, nev) values (48, 'Szerző 48');
+INSERT INTO szerzo(id, nev) values (49, 'Szerző 49');
+INSERT INTO szerzo(id, nev) values (50, 'Szerző 50');
+
+commit;
+
+
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (1, 'Könyv 1', '45', 10, 422, 'A thrilling adventure through time and space.', 'magyar', '2', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (2, 'Könyv 2', '9', 10, 156, 'A thrilling adventure through time and space.', 'magyar', '9', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (3, 'Könyv 3', '41', 10, 158, 'An insightful exploration of human nature and society.', 'magyar', '7', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (4, 'Könyv 4', '35', 4, 105, 'A thrilling adventure through time and space.', 'magyar', '5', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (5, 'Könyv 5', '3', 3, 376, 'A heartwarming tale of love and friendship.', 'magyar', '10', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (6, 'Könyv 6', '12', 5, 103, 'An insightful exploration of human nature and society.', 'magyar', '7', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (7, 'Könyv 7', '5', 1, 358, 'An inspiring journey of self-discovery and resilience.', 'magyar', '8', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (8, 'Könyv 8', '41', 2, 413, 'A heartwarming tale of love and friendship.', 'magyar', '6', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (9, 'Könyv 9', '40', 1, 241, 'A captivating story that will keep you hooked till the end.', 'magyar', '2', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (10, 'Könyv 10', '25', 5, 441, 'A heartwarming tale of love and friendship.', 'magyar', '7', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (11, 'Könyv 11', '37', 6, 466, 'An insightful exploration of human nature and society.', 'magyar', '9', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (12, 'Könyv 12', '37', 1, 192, 'A thrilling adventure through time and space.', 'magyar', '8', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (13, 'Könyv 13', '27', 9, 399, 'An inspiring journey of self-discovery and resilience.', 'magyar', '3', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (14, 'Könyv 14', '36', 2, 285, 'An insightful exploration of human nature and society.', 'magyar', '1', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (15, 'Könyv 15', '9', 8, 146, 'An inspiring journey of self-discovery and resilience.', 'magyar', '3', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (16, 'Könyv 16', '42', 7, 421, 'A thrilling adventure through time and space.', 'magyar', '3', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (17, 'Könyv 17', '4', 8, 336, 'A captivating story that will keep you hooked till the end.', 'magyar', '9', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (18, 'Könyv 18', '24', 4, 148, 'An insightful exploration of human nature and society.', 'magyar', '10', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (19, 'Könyv 19', '31', 7, 335, 'A captivating story that will keep you hooked till the end.', 'magyar', '6', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (20, 'Könyv 20', '1', 3, 112, 'An inspiring journey of self-discovery and resilience.', 'magyar', '7', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (21, 'Könyv 21', '37', 4, 305, 'A captivating story that will keep you hooked till the end.', 'magyar', '7', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (22, 'Könyv 22', '11', 9, 181, 'A captivating story that will keep you hooked till the end.', 'magyar', '3', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (23, 'Könyv 23', '2', 10, 241, 'A thrilling adventure through time and space.', 'magyar', '3', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (24, 'Könyv 24', '7', 9, 198, 'An inspiring journey of self-discovery and resilience.', 'magyar', '8', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (25, 'Könyv 25', '37', 10, 112, 'An insightful exploration of human nature and society.', 'magyar', '3', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (26, 'Könyv 26', '14', 6, 235, 'A thrilling adventure through time and space.', 'magyar', '4', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (27, 'Könyv 27', '43', 4, 291, 'An inspiring journey of self-discovery and resilience.', 'magyar', '9', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (28, 'Könyv 28', '26', 5, 396, 'A captivating story that will keep you hooked till the end.', 'magyar', '10', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (29, 'Könyv 29', '21', 8, 426, 'A thrilling adventure through time and space.', 'magyar', '6', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (30, 'Könyv 30', '5', 9, 393, 'An insightful exploration of human nature and society.', 'magyar', '9', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (31, 'Könyv 31', '32', 5, 322, 'An inspiring journey of self-discovery and resilience.', 'magyar', '6', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (32, 'Könyv 32', '29', 9, 423, 'A heartwarming tale of love and friendship.', 'magyar', '9', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (33, 'Könyv 33', '16', 6, 121, 'A thrilling adventure through time and space.', 'magyar', '2', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (34, 'Könyv 34', '20', 8, 495, 'An insightful exploration of human nature and society.', 'magyar', '6', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (35, 'Könyv 35', '37', 1, 442, 'A heartwarming tale of love and friendship.', 'magyar', '3', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (36, 'Könyv 36', '27', 6, 438, 'An insightful exploration of human nature and society.', 'spanyol', '9', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (37, 'Könyv 37', '38', 5, 438, 'An inspiring journey of self-discovery and resilience.', 'német', '8', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (38, 'Könyv 38', '35', 8, 454, 'A captivating story that will keep you hooked till the end.', 'spanyol', '3', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (39, 'Könyv 39', '20', 1, 248, 'A thrilling adventure through time and space.', 'angol', '1', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (40, 'Könyv 40', '31', 2, 254, 'An insightful exploration of human nature and society.', 'német', '10', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (41, 'Könyv 41', '29', 2, 395, 'A heartwarming tale of love and friendship.', 'angol', '2', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (42, 'Könyv 42', '26', 9, 245, 'A heartwarming tale of love and friendship.', 'magyar', '9', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (43, 'Könyv 43', '50', 9, 431, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '4', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (44, 'Könyv 44', '32', 3, 174, 'A thrilling adventure through time and space.', 'német', '8', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (45, 'Könyv 45', '7', 5, 215, 'An insightful exploration of human nature and society.', 'spanyol', '2', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (46, 'Könyv 46', '21', 1, 226, 'An inspiring journey of self-discovery and resilience.', 'német', '4', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (47, 'Könyv 47', '41', 7, 499, 'A thrilling adventure through time and space.', 'magyar', '7', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (48, 'Könyv 48', '45', 3, 474, 'An inspiring journey of self-discovery and resilience.', 'német', '10', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (49, 'Könyv 49', '42', 7, 165, 'An inspiring journey of self-discovery and resilience.', 'magyar', '7', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (50, 'Könyv 50', '33', 10, 451, 'An inspiring journey of self-discovery and resilience.', 'magyar', '5', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (51, 'Könyv 51', '46', 6, 279, 'A thrilling adventure through time and space.', 'spanyol', '7', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (52, 'Könyv 52', '19', 9, 356, 'An insightful exploration of human nature and society.', 'magyar', '2', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (53, 'Könyv 53', '32', 2, 109, 'A heartwarming tale of love and friendship.', 'magyar', '5', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (54, 'Könyv 54', '16', 9, 210, 'An inspiring journey of self-discovery and resilience.', 'angol', '10', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (55, 'Könyv 55', '38', 7, 420, 'A captivating story that will keep you hooked till the end.', 'német', '8', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (56, 'Könyv 56', '25', 5, 290, 'A captivating story that will keep you hooked till the end.', 'német', '8', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (57, 'Könyv 57', '35', 1, 223, 'An inspiring journey of self-discovery and resilience.', 'német', '5', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (58, 'Könyv 58', '6', 2, 379, 'An inspiring journey of self-discovery and resilience.', 'magyar', '3', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (59, 'Könyv 59', '50', 10, 116, 'A heartwarming tale of love and friendship.', 'angol', '2', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (60, 'Könyv 60', '15', 9, 110, 'A captivating story that will keep you hooked till the end.', 'német', '1', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (61, 'Könyv 61', '28', 2, 102, 'A captivating story that will keep you hooked till the end.', 'német', '5', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (62, 'Könyv 62', '47', 4, 349, 'An inspiring journey of self-discovery and resilience.', 'magyar', '7', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (63, 'Könyv 63', '33', 9, 333, 'A heartwarming tale of love and friendship.', 'angol', '4', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (64, 'Könyv 64', '39', 4, 467, 'A captivating story that will keep you hooked till the end.', 'spanyol', '5', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (65, 'Könyv 65', '48', 6, 273, 'A captivating story that will keep you hooked till the end.', 'angol', '4', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (66, 'Könyv 66', '13', 2, 500, 'An insightful exploration of human nature and society.', 'spanyol', '1', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (67, 'Könyv 67', '36', 1, 178, 'A heartwarming tale of love and friendship.', 'spanyol', '8', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (68, 'Könyv 68', '2', 2, 108, 'An inspiring journey of self-discovery and resilience.', 'magyar', '9', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (69, 'Könyv 69', '48', 8, 463, 'A thrilling adventure through time and space.', 'spanyol', '5', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (70, 'Könyv 70', '48', 3, 487, 'An insightful exploration of human nature and society.', 'angol', '10', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (71, 'Könyv 71', '26', 9, 325, 'A captivating story that will keep you hooked till the end.', 'magyar', '10', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (72, 'Könyv 72', '11', 2, 470, 'An insightful exploration of human nature and society.', 'angol', '4', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (73, 'Könyv 73', '13', 6, 475, 'A heartwarming tale of love and friendship.', 'német', '4', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (74, 'Könyv 74', '10', 7, 264, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '8', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (75, 'Könyv 75', '46', 9, 192, 'A captivating story that will keep you hooked till the end.', 'angol', '7', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (76, 'Könyv 76', '38', 3, 268, 'An insightful exploration of human nature and society.', 'magyar', '9', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (77, 'Könyv 77', '10', 3, 269, 'A captivating story that will keep you hooked till the end.', 'német', '6', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (78, 'Könyv 78', '10', 6, 235, 'A heartwarming tale of love and friendship.', 'spanyol', '4', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (79, 'Könyv 79', '6', 10, 178, 'An insightful exploration of human nature and society.', 'német', '8', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (80, 'Könyv 80', '31', 2, 161, 'A heartwarming tale of love and friendship.', 'spanyol', '2', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (81, 'Könyv 81', '49', 3, 111, 'A captivating story that will keep you hooked till the end.', 'német', '8', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (82, 'Könyv 82', '34', 8, 371, 'A heartwarming tale of love and friendship.', 'spanyol', '7', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (83, 'Könyv 83', '42', 1, 431, 'A captivating story that will keep you hooked till the end.', 'angol', '8', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (84, 'Könyv 84', '33', 8, 338, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '1', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (85, 'Könyv 85', '27', 3, 477, 'An inspiring journey of self-discovery and resilience.', 'spanyol', '8', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (86, 'Könyv 86', '14', 1, 259, 'An inspiring journey of self-discovery and resilience.', 'német', '1', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (87, 'Könyv 87', '32', 2, 448, 'An insightful exploration of human nature and society.', 'spanyol', '5', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (88, 'Könyv 88', '31', 7, 432, 'An insightful exploration of human nature and society.', 'spanyol', '1', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (89, 'Könyv 89', '31', 5, 253, 'A heartwarming tale of love and friendship.', 'német', '2', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (90, 'Könyv 90', '6', 1, 383, 'A thrilling adventure through time and space.', 'angol', '3', 7990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (91, 'Könyv 91', '5', 2, 103, 'A heartwarming tale of love and friendship.', 'angol', '5', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (92, 'Könyv 92', '17', 9, 345, 'An insightful exploration of human nature and society.', 'német', '2', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (93, 'Könyv 93', '47', 2, 259, 'A thrilling adventure through time and space.', 'spanyol', '8', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (94, 'Könyv 94', '15', 7, 366, 'A heartwarming tale of love and friendship.', 'angol', '1', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (95, 'Könyv 95', '35', 10, 305, 'A heartwarming tale of love and friendship.', 'spanyol', '6', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (96, 'Könyv 96', '34', 3, 289, 'A thrilling adventure through time and space.', 'angol', '6', 3990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (97, 'Könyv 97', '21', 9, 157, 'A heartwarming tale of love and friendship.', 'magyar', '9', 10990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (98, 'Könyv 98', '36', 8, 400, 'A heartwarming tale of love and friendship.', 'német', '9', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (99, 'Könyv 99', '25', 8, 353, 'An insightful exploration of human nature and society.', 'angol', '10', 5990);
+INSERT INTO KONYV (id, cim, szerzo_id, kiado_id, oldalszam, leiras, nyelv, mufaj_id, ar) VALUES (100, 'Könyv 100', '34', 10, 150, 'A captivating story that will keep you hooked till the end.', 'spanyol', '8', 3990);
+
+
+
+commit;
+
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','90','8');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','97','32');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','69','13');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','52','24');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','46','12');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','99','18');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','44','12');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','99','23');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','19','23');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','58','23');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','36','30');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','62','3');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','94','17');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','48','25');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','14','31');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','62','4');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','75','13');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','66','12');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','30','12');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','71','29');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','100','4');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','8','21');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','9','9');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','18','21');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','70','5');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','24','30');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','18','13');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','2','5');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','9','14');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','69','31');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','63','11');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','23','34');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','76','32');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','37','10');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','46','22');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','5','31');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','4','2');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','41','1');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','67','9');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','89','31');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','17','4');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','100','31');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','39','11');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','75','31');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','33','8');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','92','6');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','14','3');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','41','28');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','72','27');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','44','29');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','53','18');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','96','5');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','81','18');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','19','4');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','13','35');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','57','17');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','94','11');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','42','22');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','77','24');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','47','28');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','7','7');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','88','8');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','78','11');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','5','29');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','31','12');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','65','21');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','12','20');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','62','25');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','7','16');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','83','18');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','54','8');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','83','35');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','80','13');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','4','31');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','94','2');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','4','24');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','16','35');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','65','28');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','11','13');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','26','33');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','34','15');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','79','23');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','87','3');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','49','23');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','59','16');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','63','12');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','26','32');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','33','26');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','13','4');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','79','22');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','43','4');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','93','11');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','32','8');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','49','15');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','12','9');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','79','5');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','78','29');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','29','20');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','49','11');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','36','21');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','85','21');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','72','25');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','11','7');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','56','17');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','95','26');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','51','34');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','98','20');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','62','32');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','54','10');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','89','11');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','69','13');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','36','21');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','100','10');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','82','22');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','45','10');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','100','3');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','68','16');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','76','20');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','100','18');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','81','9');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','64','34');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','57','15');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','37','11');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','73','12');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','91','33');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','87','28');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','48','21');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','46','20');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','32','5');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','65','4');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','1','16');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','34','34');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('8','72','9');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('10','74','14');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','63','14');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','6','13');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','67','14');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','52','34');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','11','21');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','14','10');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('3','75','29');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('1','58','30');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','46','16');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('5','36','3');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('7','49','5');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('2','88','30');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('4','39','14');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','27','26');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('9','60','29');
+INSERT INTO KESZLET (ARUHAZ_ID,KONYV_ID,MENNYISEG) VALUES ('6','28','33');
+
+commit;
+
+INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (1, 2, 32, 'Szeged, Kossuth Lajos sgrt., 6724', 1, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
+INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (2, 3, 17, 'Budapest, Nagy Jenő utca 12., 1126', 2, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
+INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (3, 5, 37, 'Lajosmizse, Szabadság tér 13.', 1, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
+INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (4, 2, 100, 'Szeged, Kossuth Lajos sgrt., 6724', 1, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
+INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (5, 3, 2, 'Budapest, Nagy Jenő utca 12., 1126', 1, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
+INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (6, 3, 56, 'Budapest, Nagy Jenő utca 12., 1126', 1, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
+INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (7, 5, 66, 'Lajosmizse, Szabadság tér 13.', 3, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
+INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (8, 2, 48, 'Szeged, Kossuth Lajos sgrt., 6724', 1, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
+INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (9, 3, 12, 'Budapest, Nagy Jenő utca 12., 1126', 1, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
+INSERT INTO VASARLAS (ID, FELHASZNALO_ID, KONYV_ID, SZALLITASI_CIM, MENNYISEG, DATUM) VALUES (10,5, 38, 'Lajosmizse, Szabadság tér 13.', 1, TO_TIMESTAMP('2024-03-23T12:34:56', 'YYYY-MM-DD"T"HH24:MI:SS'));
+
+commit;
+
+
+
+create or replace TRIGGER KIFUTO_TRIGGER
+FOR INSERT OR UPDATE OF MENNYISEG ON "KESZLET"
+COMPOUND TRIGGER
+
+    TYPE t_stock IS TABLE OF KONYV.ID%TYPE INDEX BY PLS_INTEGER;
+    v_books t_stock;
+    v_book_id KONYV.ID%TYPE;
+
+    AFTER EACH ROW IS
+    BEGIN
+        v_books(v_books.COUNT + 1) := :NEW.KONYV_ID;
+    END AFTER EACH ROW;
+
+    AFTER STATEMENT IS
+        v_total_amount NUMBER;
+    BEGIN
+        FOR i IN 1 .. v_books.COUNT LOOP
+            SELECT SUM(MENNYISEG) INTO v_total_amount
+            FROM KESZLET
+            WHERE KONYV_ID = v_books(i)
+            GROUP BY KONYV_ID;
+
+            IF v_total_amount <= 10 THEN
+                UPDATE KONYV
+                SET KIFUTO = 1
+                WHERE ID = v_books(i);
+            ELSE
+                UPDATE KONYV
+                SET KIFUTO = 0
+                WHERE ID = v_books(i);
+            END IF;
+        END LOOP;
+    END AFTER STATEMENT;
+
+END KIFUTO_TRIGGER;
+
+
+
+
+commit;
+
+
+
+create or replace TRIGGER update_torzsvasarlo
+AFTER INSERT ON "VASARLAS"
+DECLARE
+    CURSOR c_vasarlasok IS
+        SELECT FELHASZNALO_ID, SUM(MENNYISEG) AS VASAROLT_DARAB
+        FROM VASARLAS
+        GROUP BY FELHASZNALO_ID;
+BEGIN
+    FOR vasarlas_rec IN c_vasarlasok
+    LOOP
+        IF vasarlas_rec.VASAROLT_DARAB >= 5 THEN
+            UPDATE FELHASZNALO
+            SET TORZSVASARLO = 1
+            WHERE ID = vasarlas_rec.FELHASZNALO_ID;
+        END IF;
+    END LOOP;
+END;
+
+
+
+commit;
+
+
+create or replace FUNCTION get_item_stock(p_item_id NUMBER, p_cursor OUT SYS_REFCURSOR)
+    RETURN SYS_REFCURSOR IS
+BEGIN
+    OPEN p_cursor FOR
+        SELECT aruhaz_id, a.cim AS aruhaz_cim, konyv_id, mennyiseg
+        FROM keszlet k
+        LEFT JOIN aruhaz a ON k.aruhaz_id = a.id
+        WHERE konyv_id = p_item_id;
+
+    RETURN p_cursor;
+END get_item_stock;
+
+
+commit;
+
+
+
+create or replace FUNCTION update_keszlet(p_konyv_id NUMBER, p_mennyiseg NUMBER)
+    RETURN BOOLEAN IS ret BOOLEAN;
+BEGIN
+    UPDATE KESZLET SET MENNYISEG = MENNYISEG - p_mennyiseg WHERE KONYV_ID = p_konyv_id and ROWNUM = 1;
+
+    ret := TRUE;
+    RETURN ret;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        ret := FALSE;
+        RETURN ret;
+END update_keszlet;
+
+
+commit;
