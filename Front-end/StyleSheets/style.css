@@ -15,7 +15,7 @@ body{
 }
 
 .topbar{
-    background-color: #504B14;
+    background-color: var(--topbar-color);
     color: white;
     padding: 30px;
     display: flex;
