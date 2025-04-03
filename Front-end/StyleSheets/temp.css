@@ -94,15 +94,16 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    background: #fff;
+    background: var(--sage-color);
     padding: 50px 60px 70px;
+    border-radius: 10px;
     text-align: center;
 }
 
 .form-box h1{
     font-size: 30px;
     margin-bottom: 60px;
-    color: blue;
+    color: var(--oliveDarb-color);
     position: relative;
 }
 .form-box h1::after{
@@ -110,7 +111,7 @@ body{
     width: 30px;
     height: 4px;
     border-radius: 3px;
-    background-color: blue;
+    background-color: var(--oliveDarb-color);
     position: absolute;
     bottom: -12px;
     left: 50%;
@@ -118,12 +119,13 @@ body{
 }
 
 .input-field{
-    background: #eaeaea;
+    background: var(--beige-color);
     margin: 15px 0;
     border-radius: 3px;
     display: flex;
     align-items: center;
 }
+
 input{
     width: 100%;
     background: transparent;
@@ -134,5 +136,22 @@ input{
 
 .input-field i{
     margin-left: 15px;
-    color: #999;
+    color: var(--oliveDarb-color);
+}
+
+.button-field{
+    width: 100%;
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+.button-field button{
+    flex-basis: 48%;
+    background: var(--oliveDarb-color);
+    color: var(--beige-color);
+    height: 40px;
+    border-radius: 20px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
 }
