@@ -145,6 +145,7 @@ input{
     display: flex;
     justify-content: space-between;
 }
+.admin-button-field button,
 .button-field button{
     flex-basis: 48%;
     background: var(--oliveDarb-color);
@@ -156,3 +157,11 @@ input{
     cursor: pointer;
 }
 
+                        /* Admin felület*/
+
+.admin-button-field{
+    width: 100%;
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-evenly;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book25</title>
+    <link rel="stylesheet" href="StyleSheets/style.css">
+</head>
+
+<body id="adminBody">
+
+    <div class="topbar">
+        <div class="logo"><a href="index.html">BOOK<span>25</span>.hu</a></div>
+    </div>
+
+        <div class="form-box">
+            <h1>Áruház hozzáadása</h1>
+
+            <form method="post" id="shop-register-form">
+
+                <div class="input-group">
+                    <div class="input-field" >
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" name="CIM" id="CIM" placeholder="Cím">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" name="EMAIL" id="EMAIL" placeholder="E-mail cím">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="number" name="TELEFON" id="TELEFON" placeholder="Telefonszám">
+                    </div>
+     
+
+                </div>
+                <div class="admin-button-field">
+                    <button type="submit">Hozzáadás</button>
+                </div>
+            </form>
+        </div>
+
+
+
+<script>
+
+    document.getElementById("shop-register-form").addEventListener("submit", function(event){
+        const cim = document.getElementById("CIM").value.trim();
+        const email = document.getElementById("EMAIL").value.trim();
+        const telefon = document.getElementById("TELEFON").value.trim();
+
+        if(!cim || !email || !telefon){
+            alert("Kérem, töltson ki minden mezőt!");
+            event.preventDefault();
+        }
+
+    });
+
+</script>
+
+    
+</body>
+</html>
