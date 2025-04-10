@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book25</title>
+    <link rel="stylesheet" href="StyleSheets/style.css">
+    <script src="https://kit.fontawesome.com/0b5692342b.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="bookregisterBody">
+
+    <div class="topbar">
+        <div class="logo"><a href="index.html">BOOK<span>25</span>.hu</a></div>
+    </div>
+
+    <div class="admin-container">
+
+                                                 <!-- Áruház hozzáadása -->
+
+        <div class="admin-form-box">
+            <h1>Könyv hozzáadása</h1>
+
+            <form method="post" id="book-register-form">
+
+                <div class="admin-input-group">
+
+                    <div class="input-field" >
+                        <i class="fa-solid fa-barcode"></i>
+                        <input type="text" name="ISBN" id="ISBN" placeholder="ISBN azonosító">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-calendar"></i>
+                        <input type="date" name="KIADAS" id="KIADAS" placeholder="Kiadás">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-font"></i>
+                        <input type="text" name="CIM" id="CIM" placeholder="Cím">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-book"></i>
+                        <input type="number" name="OLDALAK_SZAMA" id="OLDALAK_SZAMA" placeholder="Oldalak száma">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-tag"></i>
+                        <input type="number" name="AR" id="AR" placeholder="Ár">
+                    </div>
+
+                </div>
+                <div class="admin-button-field">
+                    <button type="submit">Hozzáadás</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+
+    </script>
+
+
+</body>
