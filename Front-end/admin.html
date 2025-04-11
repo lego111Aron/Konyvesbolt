@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book25</title>
+    <link rel="stylesheet" href="StyleSheets/style.css">
+    <script src="https://kit.fontawesome.com/0b5692342b.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="adminBody">
+
+    <div class="topbar">
+        <div class="logo"><a href="index.html">BOOK<span>25</span>.hu</a></div>
+    </div>
+
+    <div class="admin-container">
+
+                                                 <!-- Áruház hozzáadása -->
+
+        <div class="admin-form-box">
+            <h1>Áruház hozzáadása</h1>
+
+            <form method="post" id="shop-register-form">
+
+                <div class="admin-input-group">
+                    <div class="input-field" >
+                        <i class="fa-solid fa-location-dot"></i>
+                        <input type="text" name="CIM" id="CIM" placeholder="Cím">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" name="EMAIL" id="EMAIL" placeholder="E-mail cím">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-phone"></i>
+                        <input type="tel" name="TELEFON" id="TELEFON" placeholder="Telefonszám" pattern="^06\d{2}\d{3}\d{4}$">
+                    </div>
+
+                </div>
+                <div class="admin-button-field">
+                    <button type="submit">Hozzáadás</button>
+                </div>
+            </form>
+        </div>
+
+                                                 <!-- Műfaj hozzáadása -->
+
+        <div class="admin-form-box">
+            <h1>Műfaj hozzáadása</h1>
+
+            <form method="post" id="genre-register-form">
+
+                <div class="admin-input-group">
+                    <div class="input-field" >
+                        <i class="fa-solid fa-font"></i>
+                        <input type="text" name="MUFAJ_NEV" id="MUFAJ_NEV" placeholder="Műfaj név">
+                    </div>
+                </div>
+                <div class="admin-button-field">
+                    <button type="submit">Hozzáadás</button>
+                </div>
+            </form>
+        </div>
+
+                                                 <!-- Alműfaj hozzáadása -->
+
+        <div class="admin-form-box">
+            <h1>Alműfaj hozzáadása</h1>
+
+            <form method="post" id="subgenre-register-form">
+
+                <div class="admin-input-group">
+                    <div class="input-field" >
+                        <i class="fa-solid fa-font"></i>
+                        <input type="text" name="ALMUFAJ_NEV" id="ALMUFAJ_NEV" placeholder="Alműfaj név">
+                    </div>
+                </div>
+                <div class="admin-button-field">
+                    <button type="submit">Hozzáadás</button>
+                </div>
+            </form>
+        </div>
+    </div>
+            <!-- Form-ok vége -->
+
+
+
+
+<script>
+
+    document.getElementById("shop-register-form").addEventListener("submit", function(event){
+        const cim = document.getElementById("CIM").value.trim();
+        const email = document.getElementById("EMAIL").value.trim();
+        const telefon = document.getElementById("TELEFON").value.trim();
+
+        if(!cim || !email || !telefon){
+            alert("Kérem, töltson ki minden mezőt!");
+            event.preventDefault();
+        }
+
+    });
+
+    document.getElementById("genre-register-form").addEventListener("submit", function(event){
+        const mufajNev = document.getElementById("MUFAJ_NEV").value.trim();
+
+        if(!mufajNev){
+            alert("Kérem, töltson ki minden mezőt!");
+            event.preventDefault();
+        }
+
+    });
+
+    document.getElementById("subgenre-register-form").addEventListener("submit", function(event){
+        const almufajNev = document.getElementById("ALMUFAJ_NEV").value.trim();
+
+        if(!almufajNev){
+            alert("Kérem, töltson ki minden mezőt!");
+            event.preventDefault();
+        }
+
+    });
+
+</script>
+
+    
+</body>
+</html>
