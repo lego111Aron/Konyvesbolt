@@ -45,6 +45,7 @@
                         <i class="fa-solid fa-tag"></i>
                         <input type="number" name="AR" id="AR" placeholder="Ár">
                     </div>
+                    
 
                 </div>
                 <div class="admin-button-field">
@@ -56,6 +57,30 @@
     </div>
 
     <script>
+
+    document.getElementById("book-register-form").addEventListener("submit", function(event){
+        const isbn = document.getElementById("ISBN").value.trim();
+        const kiadas = document.getElementById("KIADAS").value.trim();
+        const cim = document.getElementById("CIM").value.trim();
+        const oldalak_szama = document.getElementById("OLDALAK_SZAMA").value.trim();
+        const ar = document.getElementById("AR").value.trim();
+        
+
+        if(!isbn || !kiadas || !cim || !oldalak_szama || !ar){
+            alert("Kérem, töltson ki minden mezőt!");
+            event.preventDefault();
+        }
+
+        if(ar < 0){
+            alert("Az ár nem lehet negatív érték!");
+            event.preventDefault();
+        }
+        if(oldalak_szama && oldalak_szama <= 0){
+            alert("Az oldalak száma nem lehet 0 vagy annál kisebb!")
+            event.preventDefault();
+        }
+
+    });
 
     </script>
 
