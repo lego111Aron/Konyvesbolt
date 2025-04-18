@@ -45,7 +45,16 @@
                         <i class="fa-solid fa-tag"></i>
                         <input type="number" name="AR" id="AR" placeholder="Ár">
                     </div>
-                    
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-hashtag"></i>
+                        <input type="number" name="ADOSZAM" id="ADOSZAM" placeholder="Kiadó adószáma">
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-hashtag"></i>
+                        <input type="text" name="NEV" id="NEV" placeholder="Szerző(k)">
+                    </div>
 
                 </div>
                 <div class="admin-button-field">
@@ -64,9 +73,10 @@
         const cim = document.getElementById("CIM").value.trim();
         const oldalak_szama = document.getElementById("OLDALAK_SZAMA").value.trim();
         const ar = document.getElementById("AR").value.trim();
-        
+        const adoszam = document.getElementById("ADOSZAM").value.trim();
+        const nev = document.getElementById("NEV").value.trim();        
 
-        if(!isbn || !kiadas || !cim || !oldalak_szama || !ar){
+        if(!isbn || !kiadas || !cim || !oldalak_szama || !ar || !adoszam || !nev){
             alert("Kérem, töltson ki minden mezőt!");
             event.preventDefault();
         }
