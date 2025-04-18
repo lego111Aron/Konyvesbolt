@@ -21,7 +21,7 @@
         <div class="admin-form-box">
             <h1>Könyv hozzáadása</h1>
 
-            <form method="post" id="book-register-form">
+            <form action="../Back-end/add_book.php" method="POST" id="book-register-form" >
 
                 <div class="admin-input-group">
 
@@ -44,6 +44,39 @@
                     <div class="input-field">
                         <i class="fa-solid fa-tag"></i>
                         <input type="number" name="AR" id="AR" placeholder="Ár">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-hashtag"></i>
+                        <input type="number" name="ADOSZAM" id="ADOSZAM" placeholder="Kiadó adószáma">
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-hashtag"></i>
+                        <input type="text" name="szerzok" id="szerzok" placeholder="Szerző(k)">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-hashtag"></i>
+                        <select name="mufaj" id="mufaj">
+                        <?php
+                            include '../Back-end/connect.php';
+                            $sql = "SELECT id, mufaj_nev FROM mufaj";
+                            $stmt = oci_parse($conn, $sql);
+                            oci_execute($stmt);
+                            $found = false;
+
+                            while ($row = oci_fetch_assoc($stmt)) {
+                                $found = true;
+                                echo "<option value='" . $row['ID'] . "'>" . $row['MUFAJ_NEV'] . "</option>";
+                            }
+
+                            if (!$found) {
+                                echo "<option value=''>Nincs elérhető műfaj</option>";
+                            }
+
+                            oci_free_statement($stmt);
+                            oci_close($conn);
+                        ?>
+                        </select>
                     </div>
 
                 </div>
