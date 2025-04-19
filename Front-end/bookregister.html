@@ -53,7 +53,35 @@
 
                     <div class="input-field">
                         <i class="fa-solid fa-hashtag"></i>
-                        <input type="text" name="NEV" id="NEV" placeholder="Szerző(k)">
+                        <input type="text" name="SZERZO_NEV" id="SZERZO_NEV" placeholder="Szerző(k)">
+                    </div>
+
+                </div>
+                <div class="admin-button-field">
+                    <button type="submit">Hozzáadás</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="admin-form-box">
+            <h1>Műfaj hozzáadása</h1>
+
+            <form method="post" id="publisher-register-form">
+
+                <div class="admin-input-group">
+                    <div class="input-field" >
+                        <i class="fa-solid fa-hashtag"></i>
+                        <input type="number" name="CREATE_ADOSZAM" id="CREATE_ADOSZAM" placeholder="Adószám">
+                    </div>
+
+                    <div class="input-field" >
+                        <i class="fa-solid fa-font"></i>
+                        <input type="text" name="KIADO_NEV" id="KIADO_NEV" placeholder="Kiadó neve">
+                    </div>
+
+                    <div class="input-field" >
+                        <i class="fa-solid fa-location-dot"></i>
+                        <input type="text" name="SZEKHELY" id="SZEKHELY" placeholder="Kiadó székhelye">
                     </div>
 
                 </div>
@@ -74,9 +102,11 @@
         const oldalak_szama = document.getElementById("OLDALAK_SZAMA").value.trim();
         const ar = document.getElementById("AR").value.trim();
         const adoszam = document.getElementById("ADOSZAM").value.trim();
-        const nev = document.getElementById("NEV").value.trim();        
+        const szerzo_nev = document.getElementById("SZERZO_NEV").value.trim();
+        
 
-        if(!isbn || !kiadas || !cim || !oldalak_szama || !ar || !adoszam || !nev){
+
+        if(!isbn || !kiadas || !cim || !oldalak_szama || !ar || !adoszam || !szerzo_nev){
             alert("Kérem, töltson ki minden mezőt!");
             event.preventDefault();
         }
@@ -87,6 +117,19 @@
         }
         if(oldalak_szama && oldalak_szama <= 0){
             alert("Az oldalak száma nem lehet 0 vagy annál kisebb!")
+            event.preventDefault();
+        }
+
+    });
+
+    document.getElementById("publisher-register-form").addEventListener("submit", function(event){
+
+        const create_adoszam = document.getElementById("CREATE_ADOSZAM").value.trim();   
+        const kiado_nev = document.getElementById("KIADO_NEV").value.trim();   
+        const szekhely = document.getElementById("SZEKHELY").value.trim();
+
+        if(!create_adoszam || !kiado_nev || !szekhely){
+            alert("Kérem, töltsön ki minden mezőt!");
             event.preventDefault();
         }
 
