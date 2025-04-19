@@ -46,8 +46,32 @@
         return $results;
     }
 
+    function sessionTest(bool $toPrint=false) {
+        session_start();
+
+        if (isset($_SESSION["username"])) {
+            if ($toPrint) {
+                if ($toPrint) echo "<br>----------------<br>";
+                echo "Bejelentkezett felhasználó: " . $_SESSION["username"];
+                if ($toPrint) echo "<br>----------------<br>";
+            }
+                
+            return true;
+        } else {
+            if ($toPrint) {
+                if ($toPrint) echo "<br>----------------<br>";
+                echo "Nincs bejelentkezett felhasznalo";
+                if ($toPrint) echo "<br>----------------<br>";
+            }
+
+            return false;
+        }
+    }
+
+    sessionTest(true);
+
     // echo "<pre>";
     // print_r(fetchUsers());
     // echo "</pre>";
-    // fetchUsers(true);
+    fetchUsers(true);
 ?>
