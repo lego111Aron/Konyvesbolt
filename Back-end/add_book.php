@@ -10,6 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $adoszam = trim($_POST['ADOSZAM'] ?? '');
     $szerzok = trim($_POST['szerzok'] ?? '');
     $mufaj = trim($_POST['mufaj'] ?? '');
+    $almufajok = $_POST['almufajok'] ?? [];
+
+    if (!is_array($almufajok)) {
+        $almufajok = [$almufajok]; 
+    }
+    
 
     $szerzoktomb= explode(",", $szerzok);
     $szerzoktomb = array_map('trim', $szerzoktomb);
@@ -93,6 +99,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 oci_bind_by_name($stmt, ":szerzo_id", $szerzo_id_parok[$szerzo]);
                 oci_execute($stmt);
                 oci_free_statement($stmt); 
+        }
+
+
+        //Akműfajok mentése
+        print_r($almufajok);
+        foreach ($almufajok as $almufaj) {
+            $sql = "INSERT INTO ALMUFAJA (ISBN, ID) VALUES (:ISBN, :almufaj_id)";
+            $stmt = oci_parse($conn, $sql);
+            oci_bind_by_name($stmt, ":ISBN", $ISBN);
+            oci_bind_by_name($stmt, ":almufaj_id", $almufaj);
+            oci_execute($stmt);
+            oci_free_statement($stmt); 
         }
 
 

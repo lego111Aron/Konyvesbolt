@@ -6,6 +6,22 @@
     <title>Book25</title>
     <link rel="stylesheet" href="StyleSheets/style.css">
     <script src="https://kit.fontawesome.com/0b5692342b.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            console.log("Select2 init...");
+            $('.subgenres-select').select2({
+                placeholder: "Válassz alműfajokat"
+            });
+
+            $('#book-register-form').on('submit', function(e) {
+                const valasztott = $('.subgenres-select').val();
+                console.log("Kiválasztott alműfajok:", valasztott);
+            });
+        });
+    </script>
 </head>
 
 <body id="bookregisterBody">
@@ -77,6 +93,30 @@
                             oci_close($conn);
                         ?>
                         </select>
+                    </div>
+                    <div class="input-field">
+                        <select class="subgenres-select" name="almufajok[]" multiple="multiple" style="width: 300px;">
+                        <?php
+                            include '../Back-end/connect.php';
+                            $sql = "SELECT id, almufaj_nev FROM almufaj";
+                            $stmt = oci_parse($conn, $sql);
+                            oci_execute($stmt);
+                            $found = false;
+
+                            while ($row = oci_fetch_assoc($stmt)) {
+                                $found = true;
+                                echo "<option value='" . $row['ID'] . "'>" . $row['ALMUFAJ_NEV'] . "</option>";
+                            }
+
+                            if (!$found) {
+                                echo "<option value=''>Nincs elérhető alműfaj</option>";
+                            }
+
+                            oci_free_statement($stmt);
+                            oci_close($conn);
+                        ?>
+                        </select>
+
                     </div>
 
                 </div>
