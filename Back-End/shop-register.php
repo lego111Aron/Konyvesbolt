@@ -17,11 +17,19 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
     oci_execute($stidCheck);
 
-    // van-e ilyen felhasznalo
+    // van-e ilyen felhasznalonev
     $userExists = oci_fetch_assoc($stidCheck);
 
     if($userExists){
-        // Létezik, elmentjük az adatot
+
+        // Létezik ilyen, felhasználó szerepkör változtatása
+
+        $updateRoleQuery = "UPDATE FELHASZNALO SET SZEREPKOR = 'uzletvezeto' WHERE FELHASZNALONEV = :vezeto";
+        $stidUpdate = oci_parse($conn, $updateRoleQuery);
+        oci_bind_by_name($stidUpdate, ":vezeto", $vezeto);
+        oci_execute($stidUpdate);
+
+        // Elmentjük az adatot
 
 
         $query = "INSERT INTO ARUHAZ (CIM, EMAIL, TELEFON, FELHASZNALO)
