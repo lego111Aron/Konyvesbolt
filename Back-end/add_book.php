@@ -114,6 +114,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
 
+        //Kép mentése
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['kep'])) {
+            $fajl = $_FILES['kep'];
+        
+            if ($fajl['error'] === UPLOAD_ERR_OK) {
+                $kiterjesztes = strtolower(pathinfo($fajl['name'], PATHINFO_EXTENSION));
+                $engedelyezett = ['jpg', 'jpeg', 'png'];
+        
+                if (!in_array($kiterjesztes, $engedelyezett)) {
+                    die("Nem engedélyezett fájltípus! Csak JPG, JPEG és PNG lehet.");
+                }
+        
+                $celMappa = './img/';
+                $fajnev = $ISBN . "." . $kiterjesztes; // Megőrizzük az eredeti kiterjesztést
+                $celUt = $celMappa . $fajnev;
+        
+                if (move_uploaded_file($fajl['tmp_name'], $celUt)) {
+                    echo "Fájl sikeresen mentve: $celUt";
+                } else {
+                    echo "Hiba a fájl mentésénél!";
+                }
+            } else {
+                echo "Hiba a feltöltésnél: " . $fajl['error'];
+            }
+        }
+
+
 
 
         oci_close($conn);

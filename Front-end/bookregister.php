@@ -37,7 +37,7 @@
         <div class="admin-form-box">
             <h1>Könyv hozzáadása</h1>
 
-            <form action="../Back-end/add_book.php" method="POST" id="book-register-form" >
+            <form action="../Back-end/add_book.php" method="POST" id="book-register-form" enctype="multipart/form-data">
 
                 <div class="admin-input-group">
 
@@ -117,6 +117,9 @@
                         ?>
                         </select>
 
+                    </div>
+                    <div class="input-field">
+                        <input type="file" name="kep" id="kep">
                     </div>
 
                 </div>
