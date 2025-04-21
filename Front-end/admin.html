@@ -21,7 +21,7 @@
         <div class="admin-form-box">
             <h1>Áruház hozzáadása</h1>
 
-            <form method="post" id="shop-register-form">
+            <form method="post" id="shop-register-form" action="../Back-End/shop-register.php">
 
                 <div class="admin-input-group">
                     <div class="input-field" >
@@ -35,6 +35,11 @@
                     <div class="input-field">
                         <i class="fa-solid fa-phone"></i>
                         <input type="tel" name="TELEFON" id="TELEFON" placeholder="Telefonszám" pattern="^06\d{2}\d{3}\d{4}$">
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" name="VEZETO" id="VEZETO" placeholder="Áruház vezető">
                     </div>
 
                 </div>
@@ -93,8 +98,9 @@
         const cim = document.getElementById("CIM").value.trim();
         const email = document.getElementById("EMAIL").value.trim();
         const telefon = document.getElementById("TELEFON").value.trim();
+        const vezeto = document.getElementById("VEZETO").value.trim();
 
-        if(!cim || !email || !telefon){
+        if(!cim || !email || !telefon || !vezeto){
             alert("Kérem, töltson ki minden mezőt!");
             event.preventDefault();
         }
