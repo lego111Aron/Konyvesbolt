@@ -1,3 +1,8 @@
+<!-- Ahhoz, hogy ez működjön át kell alakítani az oldalt php-re -->
+<!-- <?php
+    include "../Back-end/authentication/test.php"; // sessionTest() függvény használata
+?> -->
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -26,7 +31,15 @@
 
     <h2><a href="admin.html">Admin adatkezelés</a></h2>
     <h2><a href="bookregister.php">Könyvek hozzáadása</a></h2>
+    <!-- TODO: ezt az elemet át kell tenni a fejlécbe -->
+    <h2><a href="../Back-end/authentication/logout.php">Kijelentkezés</a></h2>
 
+    <!-- Ahhoz, hogy ez működjön át kell alakítani az oldalt php-ra -->
+    <!-- Ez egy példa arra, hogy hogyan lehet megvalósítani azt, hogy a kijelentkezés gomb csak akkor jelenjen meg
+     ha a felhasználó be van jelentkezve. Ez implementálható a bejelentkezési gombra is fordított logikával -->
+    <!-- <?php if (sessionTest()): ?>
+        <h2><a href="../Back-end/authentication/logout.php">Kijelentkezés</a></h2>
+    <?php endif; ?> -->
 
 </body>
 </html>

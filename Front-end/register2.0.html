@@ -10,13 +10,12 @@
 <body id="registerBody">
 
 
-
     <div class="container">
 
         <div class="form-box">
             <h1>Regisztráció</h1>
 
-            <form method="post" id="register-form">
+            <form method="post" action="../Back-end/authentication/register.php" id="register-form">
 
                 <div class="input-group">
                     <div class="input-field" >
@@ -70,13 +69,15 @@
 
 
         if(!nev || !email || !felhasznalonev || !jelszo || !jelszo_ujra || !telefon || !lakcim){
-            alert("Kérem, töltson ki minden mezőt!");
+            alert("Kérem, töltsön ki minden mezőt!");
             event.preventDefault();
+            return;
         }
 
         if(jelszo !== jelszo_ujra){
             alert("Nem egyezik meg a két jelszó!");
             event.preventDefault();
+            return;
         }
 
     });
