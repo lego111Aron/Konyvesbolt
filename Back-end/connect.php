@@ -1,5 +1,4 @@
 <?php
-
 $tns = "
 (DESCRIPTION =
     (ADDRESS_LIST =

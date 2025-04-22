@@ -67,11 +67,11 @@
                     </div>
 
                     <div class="input-field">
-                        <i class="fa-solid fa-hashtag"></i>
+                        <i class="fa-solid fa-pencil"></i>
                         <input type="text" name="szerzok" id="szerzok" placeholder="Szerző(k)">
                     </div>
                     <div class="input-field">
-                        <i class="fa-solid fa-hashtag"></i>
+                        <i class="fa-solid fa-list"></i>
                         <select name="mufaj" id="mufaj">
                         <?php
                             include '../Back-end/connect.php';
@@ -125,6 +125,7 @@
                     <button type="submit">Hozzáadás</button>
                 </div>
             </form>
+            </div>
         </div>
 
         <div class="admin-form-box">

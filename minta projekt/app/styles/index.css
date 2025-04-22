@@ -1,7 +1,0 @@
-.search-icon {
-    height: 1rem;
-}
-
-#cart-delete, #logo {
-    filter: brightness(0) saturate(100%) invert(100%) sepia(31%) saturate(0%) hue-rotate(58deg) brightness(107%) contrast(101%) !important;
-}

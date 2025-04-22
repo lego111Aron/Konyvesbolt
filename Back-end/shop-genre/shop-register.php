@@ -1,6 +1,6 @@
 <?php
 
-include "connect.php";
+include "../connect.php";
 
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
 
         if(oci_execute($stid)) {
-            header("Location: ../Front-end/index.html");
+            header("Location: ../../Front-end/index.html");
             exit;
         }else{
             $error = oci_error($stid);
