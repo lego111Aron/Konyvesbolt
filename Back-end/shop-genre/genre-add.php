@@ -31,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             oci_bind_by_name($stidInsert, ":mufaj_nev", $mufaj_nev);
 
             if(oci_execute($stidInsert)){
-                echo "<script>alert('Sikeres műfajhozzáadás!'); window.location.href='../Front-end/index.html';</script>";
+                echo "<script>alert('Sikeres műfajhozzáadás!'); window.location.href='../../Front-end/index.html';</script>";
 
             }else{
                 $error = oci_error($stidInsert);

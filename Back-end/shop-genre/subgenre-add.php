@@ -31,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             oci_bind_by_name($stidInsert, ":almufaj_nev", $almufaj_nev);
 
             if(oci_execute($stidInsert)){
-                echo "<script>alert('Sikeres alműfajhozzáadás!'); window.location.href='../Front-end/index.html';</script>";
+                echo "<script>alert('Sikeres alműfajhozzáadás!'); window.location.href='../../Front-end/index.html';</script>";
 
             }else{
                 $error = oci_error($stidInsert);
