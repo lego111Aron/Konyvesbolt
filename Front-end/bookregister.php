@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book25</title>
-    <link rel="stylesheet" href="StyleSheets/style.css">
     <script src="https://kit.fontawesome.com/0b5692342b.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="StyleSheets/style.css">
+
     <script>
         $(document).ready(function() {
             console.log("Select2 init...");
@@ -31,9 +32,6 @@
     </div>
 
     <div class="admin-container">
-
-                                                 <!-- Áruház hozzáadása -->
-
         <div class="admin-form-box">
             <h1>Könyv hozzáadása</h1>
 
@@ -63,6 +61,7 @@
                     </div>
                     <div class="input-field">
                         <i class="fa-solid fa-hashtag"></i>
+                        
                         <input type="number" name="ADOSZAM" id="ADOSZAM" placeholder="Kiadó adószáma">
                     </div>
 
@@ -73,6 +72,7 @@
                     <div class="input-field">
                         <i class="fa-solid fa-hashtag"></i>
                         <select name="mufaj" id="mufaj">
+                            <option value="" disabled selected>Műfaj</option>
                         <?php
                             include '../Back-end/connect.php';
                             $sql = "SELECT id, mufaj_nev FROM mufaj";
@@ -120,42 +120,46 @@
                     </div>
                     <div class="input-field">
                         <input type="file" name="kep" id="kep">
-                        </div>
+                    </div>
                 <div class="admin-button-field">
                     <button type="submit">Hozzáadás</button>
                 </div>
             </form>
         </div>
-
-        <div class="admin-form-box">
-            <h1>Kiadó hozzáadása</h1>
-
-            <form method="post" id="publisher-register-form">
-
-                <div class="admin-input-group">
-                    <div class="input-field" >
-                        <i class="fa-solid fa-hashtag"></i>
-                        <input type="number" name="CREATE_ADOSZAM" id="CREATE_ADOSZAM" placeholder="Adószám">
-                    </div>
-
-                    <div class="input-field" >
-                        <i class="fa-solid fa-font"></i>
-                        <input type="text" name="KIADO_NEV" id="KIADO_NEV" placeholder="Kiadó neve">
-                    </div>
-
-                    <div class="input-field" >
-                        <i class="fa-solid fa-location-dot"></i>
-                        <input type="text" name="SZEKHELY" id="SZEKHELY" placeholder="Kiadó székhelye">
-                    </div>
-
-                </div>
-                <div class="admin-button-field">
-                    <button type="submit">Hozzáadás</button>
-                </div>
-            </form>
-        </div>
-
     </div>
+
+    <div class="admin-form-box">
+        <h1>Kiadó hozzáadása</h1>
+
+        <form action="../Back-end/add_publisher.php" method="post" id="publisher-register-form">
+
+            <div class="admin-input-group">
+                <div class="input-field" >
+                    <i class="fa-solid fa-hashtag"></i>
+                    <input type="number" name="ADOSZAM" id="CREATE_ADOSZAM" placeholder="Adószám">
+                </div>
+
+                <div class="input-field" >
+                    <i class="fa-solid fa-font"></i>
+                    <input type="text" name="NEV" id="KIADO_NEV" placeholder="Kiadó neve">
+                </div>
+
+                <div class="input-field" >
+                    <i class="fa-solid fa-location-dot"></i>
+                    <input type="text" name="SZEKHELY" id="SZEKHELY" placeholder="Kiadó székhelye">
+                </div>
+
+            </div>
+            <div class="admin-button-field">
+                <button type="submit">Hozzáadás</button>
+            </div>
+        </form>
+    </div>
+       
+    </div>
+
+
+
 
     <script>
 
