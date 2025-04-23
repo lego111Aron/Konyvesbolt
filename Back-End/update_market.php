@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $mindenjo = true;
 
     if (!empty($id) && !empty($cim) && !empty($telefon) && !empty($email) && !empty($felhasznalo)) {
-        // Ellenőrizzük, hogy az ID létezik-e
         $sql = "SELECT felhasznalo FROM aruhaz WHERE id = :id";
         $stmt = oci_parse($conn, $sql);
         oci_bind_by_name($stmt, ":id", $id);
@@ -22,10 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $mindenjo = false;
         } else {
             $regi_felhasznalo = $row['FELHASZNALO'];
-
-            // Ellenőrizzük, hogy változott-e az üzletvezető
             if ($regi_felhasznalo !== $felhasznalo) {
-                // Ellenőrizzük, hogy a felhasználó létezik-e
                 $sql = "SELECT COUNT(*) AS count FROM felhasznalo WHERE felhasznalonev = :felhasznalo";
                 $stmt = oci_parse($conn, $sql);
                 oci_bind_by_name($stmt, ":felhasznalo", $felhasznalo);
@@ -38,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $mindenjo = false;
                 }
                 else{
-                    // Ellenőrizzük, hogy a felhasználó már nem foglalt-e
                     $sql = "SELECT COUNT(*) AS count FROM aruhaz WHERE felhasznalo = :felhasznalo";
                     $stmt = oci_parse($conn, $sql);
                     oci_bind_by_name($stmt, ":felhasznalo", $felhasznalo);
@@ -50,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         echo "Hiba: A megadott üzletvezető már foglalt.";
                         $mindenjo = false;
                     }else{
-                        //régi felhasználó "szerepkor" modósítása
                         $sql = "UPDATE felhasznalo SET szerepkor = 'felhasznalo' WHERE felhasznalonev = :felhasznalo";
                         $stmt = oci_parse($conn, $sql);
                         oci_bind_by_name($stmt, ":felhasznalo", $regi_felhasznalo);
@@ -58,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             echo "Hiba: Nem sikerült visszaállítani a régi üzletvezető szerepkörét.";
                             $mindenjo = false;
                         }
-                        //új felhasználó "üzletvezető" modósítása
                         $sql = "UPDATE felhasznalo SET szerepkor = 'uzletvezeto' WHERE felhasznalonev = :felhasznalo";
                         $stmt = oci_parse($conn, $sql);
                         oci_bind_by_name($stmt, ":felhasznalo", $felhasznalo);

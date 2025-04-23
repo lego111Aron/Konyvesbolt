@@ -5,13 +5,11 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $mindenjo = true;
 
-    // Ellenőrizzük, hogy az ID szám-e
     if (!is_numeric($id)) {
         echo "Hiba: Érvénytelen ID.";
         $mindenjo = false;
     }
 
-    // Először lekérjük a hozzá tartozó felhasználót (üzletvezetőt)
     $sql = "SELECT felhasznalo FROM aruhaz WHERE id = :id";
     $stmt = oci_parse($conn, $sql);
     oci_bind_by_name($stmt, ":id", $id);
@@ -23,8 +21,6 @@ if (isset($_GET['id'])) {
         $mindenjo = false;
     } else {
         $felhasznalo = $row['FELHASZNALO'];
-
-        // Töröljük az áruházat
         $sql = "DELETE FROM aruhaz WHERE id = :id";
         $stmt = oci_parse($conn, $sql);
         oci_bind_by_name($stmt, ":id", $id);
@@ -32,8 +28,6 @@ if (isset($_GET['id'])) {
             echo "Hiba az áruház törlése során.";
             $mindenjo = false;
         }
-
-        // Szerepkör visszaállítása
         if ($mindenjo) {
             $sql = "UPDATE felhasznalo SET szerepkor = 'felhasznalo' WHERE felhasznalonev = :felhasznalo";
             $stmt = oci_parse($conn, $sql);

@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         oci_bind_by_name($stmt, ":adoszam", $adoszam);
 
         if (oci_execute($stmt)) {
-            header("Location: ../Front-end/bookregister.php"); // sikeres frissítés után vissza
+            header("Location: ../Front-end/bookregister.php");
             exit;
         } else {
             echo "Hiba történt a frissítés során.";

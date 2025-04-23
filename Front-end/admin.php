@@ -182,10 +182,7 @@
                             <td><input class="print_input" type="text" name="telefon" value="<?php echo $aruhaz->TELEFON; ?>"></td>
                             <td><input class="print_input" type="email" name="email" value="<?php echo $aruhaz->EMAIL; ?>"></td>
                             <td><input class="print_input" type="text" name="felhasznalo" value="<?php echo $aruhaz->FELHASZNALO; ?>"></td>
-
-                            <!-- Rejtett mező az ID-hez -->
                             <input type="hidden" name="id" value="<?php echo $aruhaz->ID; ?>">
-
                             <td><button type="submit">Frissítés</button></td>
                         </form>
                         <td>
@@ -198,7 +195,7 @@
             </table>
         </div>
     </div>
-            <!-- Form-ok vége -->
+
 
 
 

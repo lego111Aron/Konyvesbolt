@@ -223,8 +223,6 @@
                             <td><?php echo $kiado->ADOSZAM; ?></td>
                             <td><input class="print_input" type="text" name="nev" value="<?php echo $kiado->NEV; ?>"></td>
                             <td><input class="print_input" type="text" name="szekhely" value="<?php echo $kiado->SZEKHELY; ?>"></td>
-
-                            <!-- Rejtett mező az adószámhoz -->
                             <input type="hidden" name="adoszam" value="<?php echo $kiado->ADOSZAM; ?>">
 
                             <td><button type="submit">Frissítés</button></td>
