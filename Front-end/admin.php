@@ -1,3 +1,24 @@
+<?php
+    include "../Back-end/connect.php";
+    $sql = "SELECT id, mufaj_nev FROM mufaj";
+    $stmt = oci_parse($conn, $sql);
+    oci_execute($stmt);
+    $mufajok = [];
+
+    while ($row = oci_fetch_object($stmt)) {
+        $mufajok[] = $row; 
+    }
+
+    $sql = "SELECT id, almufaj_nev FROM almufaj";
+    $stmt = oci_parse($conn, $sql);
+    oci_execute($stmt);
+    $almufajok = [];
+
+    while ($row = oci_fetch_object($stmt)) {
+        $almufajok[] = $row; 
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -85,6 +106,76 @@
                     <button type="submit">Hozzáadás</button>
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="admin_print">
+        <div class="admin_print_element">
+            <h1>Műfajok</h1>
+            <table>
+                <tr>
+                    <th>Műfaj</th>
+                    <th>Frissítés</th>
+                    <th>Törlés</th>
+                </tr>
+                <?php foreach ($mufajok as $mufaj) {
+                    echo "<tr>";
+                    echo "<form method='POST' action='../Back-End/shop-genre/update_genre.php'>";
+                    echo "<td>
+                            <input type='hidden' name='id' value='" . $mufaj->ID . "'>
+                            <input type='text' name='mufaj_nev' class='print_input' value='" . $mufaj->MUFAJ_NEV . "'>
+                          </td>";
+                    echo "<td><button type='submit'>Frissítés</button></td>";
+                    echo "<td><a href='../Back-end/shop-genre/delete_genre.php?id=" . $mufaj->ID . "'>Törlés</a></td>";
+                    echo "</form>";
+                    echo "</tr>";
+                } ?>
+            </table>
+        </div>
+
+        <div class="admin_print_element">
+            <h1>Alműfajok</h1>
+            <table>
+                <tr>
+                    <th>Alműfaj</th>
+                    <th>Frissítés</th>
+                    <th>Törlés</th>
+                </tr>
+                <?php foreach ($almufajok as $almufaj) {
+                    echo "<tr>";
+                    echo "<form method='POST' action='../Back-End/shop-genre/update_subgenre.php'>";
+                    echo "<td>
+                            <input type='hidden' name='id' value='" . $almufaj->ID . "'>
+                            <input type='text' name='almufaj_nev' class='print_input' value='" . $almufaj->ALMUFAJ_NEV . "'>
+                          </td>";
+                    echo "<td><button type='submit'>Frissítés</button></td>";
+                    echo "<td><a href='../Back-end/shop-genre/delete_subgenre.php?id=" . $almufaj->ID . "'>Törlés</a></td>";
+                    echo "</form>";
+                    echo "</tr>";
+                } ?>
+            </table>
+        </div>
+
+        <div class="admin_print_element">
+            <h1>Kiadók</h1>
+            <table>
+                <tr>
+                    <th>Alműfaj</th>
+                    <th>Frissítés</th>
+                    <th>Törlés</th>
+                </tr>
+                <?php foreach ($almufajok as $almufaj) {
+                    echo "<tr>";
+                    echo "<form method='POST' action='../Back-End/shop-genre/update_subgenre.php'>";
+                    echo "<td>
+                            <input type='hidden' name='id' value='" . $almufaj->ID . "'>
+                            <input type='text' name='almufaj_nev' class='print_input' value='" . $almufaj->ALMUFAJ_NEV . "'>
+                          </td>";
+                    echo "<td><button type='submit'>Frissítés</button></td>";
+                    echo "<td><a href='../Back-end/shop-genre/delete_subgenre.php?id=" . $almufaj->ID . "'>Törlés</a></td>";
+                    echo "</form>";
+                    echo "</tr>";
+                } ?>
+            </table>
         </div>
     </div>
             <!-- Form-ok vége -->

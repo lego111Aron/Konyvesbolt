@@ -1,3 +1,15 @@
+<?php
+include "../Back-end/connect.php";
+
+$sql = "SELECT ISBN, KIADAS, CIM, OLDALAK_SZAMA, AR FROM KONYV";
+$stmt = oci_parse($conn, $sql);
+oci_execute($stmt);
+$konyvek = [];
+while ($row = oci_fetch_object($stmt)) {
+    $konyvek[] = $row;
+} 
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -121,11 +133,10 @@
                     <div class="input-field">
                         <input type="file" name="kep" id="kep">
                     </div>
-                <div class="admin-button-field">
-                    <button type="submit">Hozzáadás</button>
-                </div>
+                    <div class="admin-button-field">
+                        <button type="submit">Hozzáadás</button>
+                    </div>
             </form>
-            </div>
         </div>
     </div>
 
@@ -156,8 +167,37 @@
             </div>
         </form>
     </div>
-       
+
     </div>
+    <div class="admin_print_element">
+            <h1>Könyvek</h1>
+            <table id="book-table">
+                <tr>
+                    <th>ISBN</th>
+                    <th>Cím</th>
+                    <th>Kiadás</th>
+                    <th>Oldalak száma</th>
+                    <th>Ár</th>
+                    <th>Frissítés</th>
+                    <th>Törlés</th>
+                </tr>
+                <?php foreach ($konyvek as $konyv): ?>
+                    <tr>
+                        <form action="../Back-end/update_book.php" method="post">
+                            <td><?php echo $konyv->ISBN; ?></td>
+                            <td><input class="print_input" type="text" name="cim" value="<?php echo $konyv->CIM; ?>"></td>
+                            <td><?php echo $konyv->KIADAS; ?></td>
+                            <td><input class="print_input" type="number" name="oldalak_szama" value="<?php echo $konyv->OLDALAK_SZAMA; ?>"></td>
+                            <td><input class="print_input" type="number" step="0.01" name="ar" value="<?php echo $konyv->AR; ?>"></td>
+                            <input type="hidden" name="isbn" value="<?php echo $konyv->ISBN; ?>">
+
+                            <td><button type="submit">Frissítés</button></td>
+                        </form>
+                        <td><a href="delete_book.php?isbn=<?php echo $konyv->ISBN; ?>">Törlés</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
 
 
 
