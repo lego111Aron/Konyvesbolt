@@ -1,7 +1,6 @@
 <?php
 include "connect.php";
 
-// Csak POST kéréseket kezelünk
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $isbn = $_POST['isbn'] ?? '';
     $cim = $_POST['cim'] ?? '';
@@ -11,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     if (!empty($isbn) && !empty($cim) && !empty($oldalak_szama) && !empty($ar)) {
-        //Ellenőrozzük, hogy az ár naem negatív-e
         if($ar<0 || $oldalak_szama<0){
             echo "Hiba: Az ár és az oldalszám nem lehet negatív.";
             $mindenjo=false;
@@ -19,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if($mindenjo){
 
         
-        // Ellenőrizzük, hogy az ISBN szám létezik-e
         $sql = "SELECT COUNT(*) AS count FROM KONYV WHERE ISBN = :isbn";
         $stmt = oci_parse($conn, $sql);
         oci_bind_by_name($stmt, ":isbn", $isbn);
@@ -49,8 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
     
-
-        
     } else {
         echo "Minden mező kitöltése kötelező!";
         $mindenjo=false;

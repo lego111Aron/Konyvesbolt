@@ -1,13 +1,21 @@
 <?php
-include "../Back-end/connect.php";
+    include "../Back-end/connect.php";
 
-$sql = "SELECT ISBN, KIADAS, CIM, OLDALAK_SZAMA, AR FROM KONYV";
-$stmt = oci_parse($conn, $sql);
-oci_execute($stmt);
-$konyvek = [];
-while ($row = oci_fetch_object($stmt)) {
-    $konyvek[] = $row;
-} 
+    $sql = "SELECT ISBN, KIADAS, CIM, OLDALAK_SZAMA, AR FROM KONYV";
+    $stmt = oci_parse($conn, $sql);
+    oci_execute($stmt);
+    $konyvek = [];
+    while ($row = oci_fetch_object($stmt)) {
+        $konyvek[] = $row;
+    } 
+
+    $sql = "SELECT * FROM KIADO";
+    $stmt = oci_parse($conn, $sql);
+    oci_execute($stmt);
+    $kiadok = [];
+    while ($row = oci_fetch_object($stmt)) {
+        $kiadok[] = $row;
+    } 
 ?>
 
 <!DOCTYPE html>
@@ -193,7 +201,34 @@ while ($row = oci_fetch_object($stmt)) {
 
                             <td><button type="submit">Frissítés</button></td>
                         </form>
-                        <td><a href="delete_book.php?isbn=<?php echo $konyv->ISBN; ?>">Törlés</a></td>
+                        <td><a href="../Back-end/delete_book.php?isbn=<?php echo $konyv->ISBN; ?>" onclick="return confirm('Biztosan törlöd ezt a könyvet?')">Törlés</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+
+
+        <div class="admin_print_element">
+            <h1>Kiadók</h1>
+            <table id="publisher-table">
+                <tr>
+                    <th>Adószám</th>
+                    <th>Név</th>
+                    <th>Székhely</th>
+                    <th>Frissítés</th>
+                </tr>
+                <?php foreach ($kiadok as $kiado): ?>
+                    <tr>
+                        <form action="../Back-end/update_publisher.php" method="post">
+                            <td><?php echo $kiado->ADOSZAM; ?></td>
+                            <td><input class="print_input" type="text" name="nev" value="<?php echo $kiado->NEV; ?>"></td>
+                            <td><input class="print_input" type="text" name="szekhely" value="<?php echo $kiado->SZEKHELY; ?>"></td>
+
+                            <!-- Rejtett mező az adószámhoz -->
+                            <input type="hidden" name="adoszam" value="<?php echo $kiado->ADOSZAM; ?>">
+
+                            <td><button type="submit">Frissítés</button></td>
+                        </form>
                     </tr>
                 <?php endforeach; ?>
             </table>

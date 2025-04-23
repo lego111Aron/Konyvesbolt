@@ -156,26 +156,8 @@
         </div>
 
         <div class="admin_print_element">
-            <h1>Kiadók</h1>
-            <table>
-                <tr>
-                    <th>Alműfaj</th>
-                    <th>Frissítés</th>
-                    <th>Törlés</th>
-                </tr>
-                <?php foreach ($almufajok as $almufaj) {
-                    echo "<tr>";
-                    echo "<form method='POST' action='../Back-End/shop-genre/update_subgenre.php'>";
-                    echo "<td>
-                            <input type='hidden' name='id' value='" . $almufaj->ID . "'>
-                            <input type='text' name='almufaj_nev' class='print_input' value='" . $almufaj->ALMUFAJ_NEV . "'>
-                          </td>";
-                    echo "<td><button type='submit'>Frissítés</button></td>";
-                    echo "<td><a href='../Back-end/shop-genre/delete_subgenre.php?id=" . $almufaj->ID . "'>Törlés</a></td>";
-                    echo "</form>";
-                    echo "</tr>";
-                } ?>
-            </table>
+            <h1>Áruházak</h1>
+                TODO
         </div>
     </div>
             <!-- Form-ok vége -->
