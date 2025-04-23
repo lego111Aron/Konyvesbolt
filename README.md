@@ -2,6 +2,10 @@
 
 A projekt futtatásához szükséges a `PuTTY` és a `XAMPP` apache szerver.
 
+- Nyissuk meg a php.ini filet. Alap elérési útvonal: `"C:\xampp\php\php.ini"`
+    - Keressük meg a: `;extension=gd`
+    - Távolítsuk el a ;-t a sor elejéről
+
 - A projekt futtatásához indítsuk el a **XAMPP**-ot.
     -  Indítsuk az apache szervet.
 - Indítsuk el **PUTTY**-t.
