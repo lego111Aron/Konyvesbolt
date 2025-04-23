@@ -17,6 +17,15 @@
     while ($row = oci_fetch_object($stmt)) {
         $almufajok[] = $row; 
     }
+
+    $sql = "SELECT id, cim, telefon, email, felhasznalo FROM aruhaz";
+    $stmt = oci_parse($conn, $sql);
+    oci_execute($stmt);
+    $aruhazak = [];
+
+    while ($row = oci_fetch_object($stmt)) {
+        $aruhazak[] = $row; 
+    }
 ?>
 
 <!DOCTYPE html>
@@ -157,7 +166,36 @@
 
         <div class="admin_print_element">
             <h1>Áruházak</h1>
-                TODO
+            <table id="market-table">
+                <tr>
+                    <th>Cím</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Üzletvezető</th>
+                    <th>Frissítés</th>
+                    <th>Törlés</th>
+                </tr>
+                <?php foreach ($aruhazak as $aruhaz): ?>
+                    <tr>
+                        <form action="../Back-end/update_market.php" method="post">
+                            <td><input class="print_input" type="text" name="cim" value="<?php echo $aruhaz->CIM; ?>"></td>
+                            <td><input class="print_input" type="text" name="telefon" value="<?php echo $aruhaz->TELEFON; ?>"></td>
+                            <td><input class="print_input" type="email" name="email" value="<?php echo $aruhaz->EMAIL; ?>"></td>
+                            <td><input class="print_input" type="text" name="felhasznalo" value="<?php echo $aruhaz->FELHASZNALO; ?>"></td>
+
+                            <!-- Rejtett mező az ID-hez -->
+                            <input type="hidden" name="id" value="<?php echo $aruhaz->ID; ?>">
+
+                            <td><button type="submit">Frissítés</button></td>
+                        </form>
+                        <td>
+                            <a href="../Back-end/delete_market.php?id=<?php echo $aruhaz->ID; ?>"
+                            onclick="return confirm('Biztosan törlöd ezt az áruházat?')">Törlés</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                
+            </table>
         </div>
     </div>
             <!-- Form-ok vége -->

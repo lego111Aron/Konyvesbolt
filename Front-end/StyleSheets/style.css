@@ -273,3 +273,24 @@ td{
 #publisher-table th:last-child{
     width: 10%;
 }
+#market-table{
+    width: 100%;
+}
+#market-table th{
+    width: 20%;
+}
+#market-table th:nth-child(1){
+    width: 25%;
+}
+#market-table .print_input{
+    width: 90%;
+}
+#market-table th:nth-child(4){
+    width: 15%;
+}
+#market-table th:nth-child(5){
+    width: 10%;
+}
+#market-table th:nth-child(6){
+    width: 10%;
+}
