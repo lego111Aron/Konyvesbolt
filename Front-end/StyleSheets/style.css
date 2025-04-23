@@ -263,7 +263,7 @@ td{
 #book-table th:nth-child(7){
     width: 10%;
 }
-#book-table td{
+#book-table td, #publisher-table td{
     font-size: 16px;
 }
 
