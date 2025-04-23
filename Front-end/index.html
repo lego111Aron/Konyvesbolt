@@ -28,11 +28,13 @@
         <a href="#">Áruházak</a>
         <a href="#">Statisztikák</a>
     </div>
-
-    <h2><a href="admin.html">Admin adatkezelés</a></h2>
-    <h2><a href="bookregister.php">Könyvek hozzáadása</a></h2>
+    <h1>Admin Funkciók:</h1>
+    <h2><a href="admin.php">Műfajok + áruházak kezelése</a></h2>
+    <h2><a href="bookregister.php">Könyvek + kiadók kezelése</a></h2>
     <!-- TODO: ezt az elemet át kell tenni a fejlécbe -->
     <h2><a href="../Back-end/authentication/logout.php">Kijelentkezés</a></h2>
+
+    <h2><a href="../Back-end/authentication/delete_user.php" onclick="return confirm('Biztosan törölni szeretné a fiókját?')">Fiók törlése</a></h2>
 
     <!-- Ahhoz, hogy ez működjön át kell alakítani az oldalt php-ra -->
     <!-- Ez egy példa arra, hogy hogyan lehet megvalósítani azt, hogy a kijelentkezés gomb csak akkor jelenjen meg

@@ -1,3 +1,33 @@
+<?php
+    include "../Back-end/connect.php";
+    $sql = "SELECT id, mufaj_nev FROM mufaj";
+    $stmt = oci_parse($conn, $sql);
+    oci_execute($stmt);
+    $mufajok = [];
+
+    while ($row = oci_fetch_object($stmt)) {
+        $mufajok[] = $row; 
+    }
+
+    $sql = "SELECT id, almufaj_nev FROM almufaj";
+    $stmt = oci_parse($conn, $sql);
+    oci_execute($stmt);
+    $almufajok = [];
+
+    while ($row = oci_fetch_object($stmt)) {
+        $almufajok[] = $row; 
+    }
+
+    $sql = "SELECT id, cim, telefon, email, felhasznalo FROM aruhaz";
+    $stmt = oci_parse($conn, $sql);
+    oci_execute($stmt);
+    $aruhazak = [];
+
+    while ($row = oci_fetch_object($stmt)) {
+        $aruhazak[] = $row; 
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -87,7 +117,85 @@
             </form>
         </div>
     </div>
-            <!-- Form-ok vége -->
+    <div class="admin_print">
+        <div class="admin_print_element">
+            <h1>Műfajok</h1>
+            <table>
+                <tr>
+                    <th>Műfaj</th>
+                    <th>Frissítés</th>
+                    <th>Törlés</th>
+                </tr>
+                <?php foreach ($mufajok as $mufaj) {
+                    echo "<tr>";
+                    echo "<form method='POST' action='../Back-End/shop-genre/update_genre.php'>";
+                    echo "<td>
+                            <input type='hidden' name='id' value='" . $mufaj->ID . "'>
+                            <input type='text' name='mufaj_nev' class='print_input' value='" . $mufaj->MUFAJ_NEV . "'>
+                          </td>";
+                    echo "<td><button type='submit'>Frissítés</button></td>";
+                    echo "<td><a href='../Back-end/shop-genre/delete_genre.php?id=" . $mufaj->ID . "'>Törlés</a></td>";
+                    echo "</form>";
+                    echo "</tr>";
+                } ?>
+            </table>
+        </div>
+
+        <div class="admin_print_element">
+            <h1>Alműfajok</h1>
+            <table>
+                <tr>
+                    <th>Alműfaj</th>
+                    <th>Frissítés</th>
+                    <th>Törlés</th>
+                </tr>
+                <?php foreach ($almufajok as $almufaj) {
+                    echo "<tr>";
+                    echo "<form method='POST' action='../Back-End/shop-genre/update_subgenre.php'>";
+                    echo "<td>
+                            <input type='hidden' name='id' value='" . $almufaj->ID . "'>
+                            <input type='text' name='almufaj_nev' class='print_input' value='" . $almufaj->ALMUFAJ_NEV . "'>
+                          </td>";
+                    echo "<td><button type='submit'>Frissítés</button></td>";
+                    echo "<td><a href='../Back-end/shop-genre/delete_subgenre.php?id=" . $almufaj->ID . "'>Törlés</a></td>";
+                    echo "</form>";
+                    echo "</tr>";
+                } ?>
+            </table>
+        </div>
+
+        <div class="admin_print_element">
+            <h1>Áruházak</h1>
+            <table id="market-table">
+                <tr>
+                    <th>Cím</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Üzletvezető</th>
+                    <th>Frissítés</th>
+                    <th>Törlés</th>
+                </tr>
+                <?php foreach ($aruhazak as $aruhaz): ?>
+                    <tr>
+                        <form action="../Back-end/update_market.php" method="post">
+                            <td><input class="print_input" type="text" name="cim" value="<?php echo $aruhaz->CIM; ?>"></td>
+                            <td><input class="print_input" type="text" name="telefon" value="<?php echo $aruhaz->TELEFON; ?>"></td>
+                            <td><input class="print_input" type="email" name="email" value="<?php echo $aruhaz->EMAIL; ?>"></td>
+                            <td><input class="print_input" type="text" name="felhasznalo" value="<?php echo $aruhaz->FELHASZNALO; ?>"></td>
+                            <input type="hidden" name="id" value="<?php echo $aruhaz->ID; ?>">
+                            <td><button type="submit">Frissítés</button></td>
+                        </form>
+                        <td>
+                            <a href="../Back-end/delete_market.php?id=<?php echo $aruhaz->ID; ?>"
+                            onclick="return confirm('Biztosan törlöd ezt az áruházat?')">Törlés</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                
+            </table>
+        </div>
+    </div>
+
 
 
 
