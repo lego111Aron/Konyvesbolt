@@ -45,7 +45,7 @@
         oci_bind_by_name($stid, ":member", $member);
 
         if (oci_execute($stid)) {
-            header("Location: ../../Front-end/login.html");
+            header("Location: ../../Front-end/login.php");
             exit;
         } else {
             $error = oci_error($stid);

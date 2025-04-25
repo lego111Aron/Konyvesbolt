@@ -24,8 +24,8 @@
             $_SESSION["username"] = $user["FELHASZNALONEV"];
             $_SESSION["email"] = $email;
 
-            // Átirányítás az index.html oldalra
-            header("Location: ../../Front-end/index.html");
+            // Átirányítás az index.php oldalra
+            header("Location: ../../Front-end/index.php");
             exit;
         } else {
             // Hibás bejelentkezési adatok

@@ -14,7 +14,7 @@
             session_unset();
             session_destroy();
 
-            header("Location: ../../Front-end/login.html");
+            header("Location: ../../Front-end/login.php");
             exit;
         } else {
             $error = oci_error($stid);
@@ -23,7 +23,7 @@
 
         oci_free_statement($stid);
     } else {
-        header("Location: ../../Front-end/login.html");
+        header("Location: ../../Front-end/login.php");
         exit;
     }
 

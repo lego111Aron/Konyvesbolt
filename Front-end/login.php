@@ -25,7 +25,7 @@
                 </div>
                 <div class="button-field">
                     <button type="submit">Bejelentkezés</button>
-                    <button type="button" onclick="window.location.href='register2.0.html'">Regisztráció</button>
+                    <button type="button" onclick="window.location.href='register2.0.php'">Regisztráció</button>
                 </div>
             </form>
         </div>

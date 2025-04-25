@@ -49,7 +49,7 @@
                 </div>
                 <div class="button-field">
                     <button type="submit">Regisztráció</button>
-                    <button type="button" onclick="window.location.href='login.html'">Bejelentkezés</button>
+                    <button type="button" onclick="window.location.href='login.php'">Bejelentkezés</button>
                 </div>
             </form>
         </div>

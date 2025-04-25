@@ -48,7 +48,7 @@
 <body id="bookregisterBody">
 
     <div class="topbar">
-        <div class="logo"><a href="index.html">BOOK<span>25</span>.hu</a></div>
+        <div class="logo"><a href="index.php">BOOK<span>25</span>.hu</a></div>
     </div>
 
     <div class="admin-container">

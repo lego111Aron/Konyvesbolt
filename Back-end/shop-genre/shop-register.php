@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
 
         if(oci_execute($stid)) {
-            header("Location: ../../Front-end/index.html");
+            header("Location: ../../Front-end/index.php");
             exit;
         }else{
             $error = oci_error($stid);

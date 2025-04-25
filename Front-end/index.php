@@ -1,7 +1,6 @@
-<!-- Ahhoz, hogy ez működjön át kell alakítani az oldalt php-re -->
-<!-- <?php
-    include "../Back-end/authentication/test.php"; // sessionTest() függvény használata
-?> -->
+
+
+<!-- include "../Back-end/authentication/test.php"; // sessionTest() függvény használata -->
 
 <!DOCTYPE html>
 <html lang="hu">
@@ -16,13 +15,13 @@
 
     <!--Fejléc-->
     <div class="topbar">
-        <div class="logo"><a href="index.html">BOOK<span>25</span>.hu</a></div>
-        <div class="login"><a href="login.html">Bejelentkezés</a></div>
+        <div class="logo"><a href="index.php">BOOK<span>25</span>.hu</a></div>
+        <div class="login"><a href="login.php">Bejelentkezés</a></div>
     </div>
 
     <!--Menü-->
     <div class="navbar">
-        <a href="index.html">Főoldal</a>
+        <a href="index.php">Főoldal</a>
         <a href="#">Könyvek</a>
         <a href="#">Kiadók</a>
         <a href="#">Áruházak</a>
