@@ -22,8 +22,8 @@
     <!--Menü-->
     <div class="navbar">
         <a href="index.php">Főoldal</a>
-        <a href="#">Könyvek</a>
-        <a href="#">Kiadók</a>
+        <a href="books.html">Könyvek</a>
+        <a href="test.html">Kiadók</a>
         <a href="#">Áruházak</a>
         <a href="#">Statisztikák</a>
     </div>
