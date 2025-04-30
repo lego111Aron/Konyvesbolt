@@ -166,6 +166,10 @@ input, select, .subgenres-select{
     outline: 0;
     cursor: pointer;
 }
+.admin-button-field button:hover,
+.button-field button:hover{
+    background: #3F3A2C;
+}
 
                         /* Admin felület*/
 
@@ -414,3 +418,86 @@ td{
 .szures-gomb:hover {
     background-color: #2e2b0a;
 }
+
+/* Felhasználói fiók adatok oldal */
+
+
+.profile-form-container {
+    background: var(--sage-color);
+    padding: 50px 60px 70px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 10px;
+
+    width: 100%;
+    max-width: 400px;
+
+    text-align: center;
+}
+
+
+.profile-form-container h2{
+    font-size: 30px;
+    margin-bottom: 60px;
+    color: var(--oliveDarb-color);
+    position: relative;
+}
+
+.profile-form-container h2::after {
+    content: '';
+    width: 30px;
+    height: 4px;
+    border-radius: 3px;
+    background-color: var(--oliveDarb-color);
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.profile-grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 20px;
+}
+
+.profileform-group {
+    margin-bottom: 15px;
+}
+
+.profileform-group label {
+    font-size: 20px;
+    color: var(--oliveDarb-color);
+}
+
+.profileform-group input[type="text"],
+.profileform-group input[type="email"] {
+    background: var(--beige-color);
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    margin: 15px 0 0px;
+}
+
+
+.profile-form-container button {
+    flex-basis: 48%;
+    background: var(--oliveDarb-color);
+    color: var(--beige-color);
+    height: 40px;
+    border-radius: 20px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.profile-form-container button:hover {
+    background: #3F3A2C;
+}
+
