@@ -1,3 +1,9 @@
+<?php
+include "../Back-end/book_management/base.php"; // Include the file containing fetchGenres function
+
+$genres = fetchGenres(); // Fetch genres from the database
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -29,22 +35,12 @@
           
           <div class="kategoria-es-kereso">
             <div class="kategoriak">
-              <label>
-                <input type="checkbox" name="kategoriak[]" value="Horror">
-                <span>Horror</span>
-              </label>
-              <label>
-                <input type="checkbox" name="kategoriak[]" value="Romantikus">
-                <span>Romantikus</span>
-              </label>
-              <label>
-                <input type="checkbox" name="kategoriak[]" value="Krimi">
-                <span>Krimi</span>
-              </label>
-              <label>
-                <input type="checkbox" name="kategoriak[]" value="Szépirodalom">
-                <span>Szépirodalom</span>
-              </label>
+              <?php foreach ($genres as $genre): ?>
+                <label>
+                  <input type="checkbox" name="kategoriak[]" value="<?= htmlspecialchars($genre['GenreName']) ?>">
+                  <span><?= htmlspecialchars($genre['GenreName']) ?></span>
+                </label>
+              <?php endforeach; ?>
             </div>
       
             <input type="text" class="kereso" placeholder="Írja be a keresett kifejezést">
