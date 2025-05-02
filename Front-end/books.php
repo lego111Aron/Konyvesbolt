@@ -18,9 +18,9 @@
     <!--Menü-->
     <div class="navbar">
         <a href="index.php">Főoldal</a>
-        <a href="#">Könyvek</a>
-        <a href="#">Kiadók</a>
-        <a href="#">Áruházak</a>
+        <a href="books.php">Könyvek</a>
+        <a href="authors.php">Kiadók</a>
+        <a href="shops.php">Áruházak</a>
         <a href="#">Statisztikák</a>
     </div>
 
