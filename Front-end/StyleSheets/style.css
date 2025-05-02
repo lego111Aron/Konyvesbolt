@@ -500,7 +500,58 @@ td{
 .profile-form-container button:hover {
     background: #3F3A2C;
 }
+/* Áruházak oldal ÉS kiadók oldal lista */
 
+.store-container h1{
+    color: var(--oliveDarb-color);
+    text-align: center;
+}
+
+.store {
+    display: flex;
+    align-items: flex-start;
+    gap: 0px;
+    padding: 15px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.store img {
+    margin-left: 50px;
+    width: 100px;
+    height: auto;
+}
+
+.store-info {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+.store-adatok{
+    display: flex;
+    gap: 30px;
+    margin-top: 15px;
+}
+
+.store-info strong {
+    font-size: 20px;
+    margin-bottom: 5px;
+    align-self: center;
+}
+
+.store-info span {
+    margin-bottom: 2px;
+}
+
+.store-container {
+    width: 80%;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
 
 /* Könyvek listázása */
 .konyvek-lista {
