@@ -36,7 +36,7 @@
                     </div>
                     <div class="input-field">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" name="" id="JELSZO_UJRA" placeholder="Jelszó újra">
+                        <input type="password" name="JELSZO_UJRA" id="JELSZO_UJRA" placeholder="Jelszó újra">
                     </div>
                     <div class="input-field">
                         <i class="fa-solid fa-phone"></i>

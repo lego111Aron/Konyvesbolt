@@ -1,6 +1,6 @@
 
 
-<!-- include "../Back-end/authentication/test.php"; // sessionTest() függvény használata -->
+<!-- include "../Back-end/authentication/base.php"; // sessionTest() függvény használata -->
 
 <!DOCTYPE html>
 <html lang="hu">
