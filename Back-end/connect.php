@@ -8,7 +8,9 @@ $tns = "
         (SID = orania2)
     )
 )";
-$conn = oci_connect('C##O4005C', 'Adatbalapu123', $tns, 'UTF8');
+// FIXME: visszaalltani az eredetire
+
+// $conn = oci_connect('C##O4005C', 'Adatbalapu123', $tns, 'UTF8');
 
 if (!$conn) {
     $error_message = oci_error();
