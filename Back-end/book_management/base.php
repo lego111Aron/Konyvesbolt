@@ -1,6 +1,6 @@
 <?php
 function fetchBooks(bool $toPrint = false, array $filter = []) {
-    include "../connect.php";
+    include __DIR__ . "/../connect.php"; // Helyes útvonal meghatározása
 
     // Dinamikus WHERE feltételek építése
     $whereClauses = [];
@@ -82,13 +82,36 @@ function fetchBooks(bool $toPrint = false, array $filter = []) {
     return $results;
 }
 
+function fetchGenres(bool $toPrint = false) {
+    include __DIR__ . "/../connect.php"; // Helyes útvonal meghatározása
 
-// Teszteléshez kiírjuk
-$filter = [
-    "search" => "teszt", // Keresett szöveg a könyv címében
-    "price" => [2000, 4000] // Ár tartomány
-];
+    $query = "SELECT * FROM MUFAJ ORDER BY MUFAJ_NEV";
+    $stid = oci_parse($conn, $query);
+    oci_execute($stid);
 
-fetchBooks(true, $filter);
+    $results = [];
+    $id = 0;
 
+    while ($row = oci_fetch_assoc($stid)) {
+        $results[] = [
+            "ID" => $row["ID"],
+            "GenreName" => $row["MUFAJ_NEV"]
+        ];
+
+        if ($toPrint) {
+            echo 
+                "<br>----------------<br>" .
+                "Genre number: " . $id . "<br>" .
+                "ID: " . $row["ID"] . "<br>" .
+                "Genre name: " . $row["MUFAJ_NEV"] . "<br>";
+        }
+
+        $id++;
+    }
+
+    oci_free_statement($stid);
+    oci_close($conn);
+
+    return $results;
+}
 ?>
