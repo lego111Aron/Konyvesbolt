@@ -1,55 +1,35 @@
 <?php
 function fetchBooks(bool $toPrint = false, array $filter = []) {
-    include __DIR__ . "/../connect.php"; // Helyes útvonal meghatározása
+    include __DIR__ . "/../connect.php";
 
-    // Dinamikus WHERE feltételek építése
-    $whereClauses = [];
-    $binds = [];
-
-    if (!empty($filter["search"])) {
-        $whereClauses[] = "LOWER(CIM) LIKE :search";
-        $binds[":search"] = "%" . strtolower($filter["search"]) . "%";
-    }
+    $search = !empty($filter["search"]) ? $filter["search"] : null;
+    $minPrice = 0;
+    $maxPrice = 999999;
 
     if (!empty($filter["price"]) && is_array($filter["price"]) && count($filter["price"]) == 2) {
-        $whereClauses[] = "AR BETWEEN :minPrice AND :maxPrice";
-        $binds[":minPrice"] = $filter["price"][0];
-        $binds[":maxPrice"] = $filter["price"][1];
+        $minPrice = $filter["price"][0];
+        $maxPrice = $filter["price"][1];
     }
 
-    $whereSql = "";
-    if (!empty($whereClauses)) {
-        $whereSql = " WHERE " . implode(" AND ", $whereClauses);
-    }
+    // Lekérdezés előkészítése
+    $stid = oci_parse($conn, "BEGIN FETCH_FILTERED_BOOKS(:search, :min_price, :max_price, :result); END;");
 
-    // Könyvek számának lekérdezése
-    $countQuery = "SELECT COUNT(*) AS BOOK_COUNT FROM KONYV" . $whereSql;
-    $countStmt = oci_parse($conn, $countQuery);
-    foreach ($binds as $key => $val) {
-        oci_bind_by_name($countStmt, $key, $binds[$key]);
-    }
-    oci_execute($countStmt);
-    $row = oci_fetch_assoc($countStmt);
-    $bookCount = $row["BOOK_COUNT"];
-    oci_free_statement($countStmt);
+    // Paraméterek bindolása
+    oci_bind_by_name($stid, ":search", $search);
+    oci_bind_by_name($stid, ":min_price", $minPrice);
+    oci_bind_by_name($stid, ":max_price", $maxPrice);
 
-    if ($toPrint) {
-        echo "<br>----------------<br>";
-        echo "Szűrő szerinti könyvek száma: " . $bookCount . "<br>";
-        echo "<br>----------------<br>";
-    }
+    // Kimeneti paraméter (REF CURSOR)
+    $cursor = oci_new_cursor($conn);
+    oci_bind_by_name($stid, ":result", $cursor, -1, OCI_B_CURSOR);
 
-    // Könyvek lekérdezése
-    $query = "SELECT * FROM KONYV" . $whereSql;
-    $stid = oci_parse($conn, $query);
-    foreach ($binds as $key => $val) {
-        oci_bind_by_name($stid, $key, $binds[$key]);
-    }
+    // Futtatás
     oci_execute($stid);
+    oci_execute($cursor);
 
     $results = [];
     $id = 0;
-    while ($row = oci_fetch_assoc($stid)) {
+    while ($row = oci_fetch_assoc($cursor)) {
         $results[] = [
             "ISBN" => $row["ISBN"],
             "PublicationDate" => $row["KIADAS"],
@@ -76,7 +56,9 @@ function fetchBooks(bool $toPrint = false, array $filter = []) {
         $id++;
     }
 
+    // Erőforrások felszabadítása
     oci_free_statement($stid);
+    oci_free_statement($cursor);
     oci_close($conn);
 
     return $results;

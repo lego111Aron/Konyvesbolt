@@ -500,7 +500,6 @@ td{
 .profile-form-container button:hover {
     background: #3F3A2C;
 }
-
 /* Áruházak oldal ÉS kiadók oldal lista */
 
 .store-container h1{
@@ -554,3 +553,47 @@ td{
     font-family: Arial, sans-serif;
 }
 
+/* Könyvek listázása */
+.konyvek-lista {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--beige-color);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.konyvek-lista h2 {
+    text-align: center;
+    color: var(--oliveDarb-color);
+    margin-bottom: 20px;
+}
+
+.konyvek {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.konyv {
+    background-color: white;
+    border: 2px solid var(--oliveDarb-color);
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.konyv h3 {
+    font-size: 18px;
+    color: var(--oliveDarb-color);
+    margin-bottom: 10px;
+}
+
+.konyv p {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #333;
+}
