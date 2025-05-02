@@ -22,11 +22,12 @@
     <!--Menü-->
     <div class="navbar">
         <a href="index.php">Főoldal</a>
-        <a href="#">Könyvek</a>
-        <a href="#">Kiadók</a>
-        <a href="#">Áruházak</a>
+        <a href="books.php">Könyvek</a>
+        <a href="authors.php">Kiadók</a>
+        <a href="shops.php">Áruházak</a>
         <a href="#">Statisztikák</a>
     </div>
+    <h2><a href="profile.php">Profil info szerkesztése oldal</a></h2>
     <h1>Admin Funkciók:</h1>
     <h2><a href="admin.php">Műfajok + áruházak kezelése</a></h2>
     <h2><a href="bookregister.php">Könyvek + kiadók kezelése</a></h2>
@@ -41,6 +42,8 @@
     <!-- <?php if (sessionTest()): ?>
         <h2><a href="../Back-end/authentication/logout.php">Kijelentkezés</a></h2>
     <?php endif; ?> -->
+
+
 
 </body>
 </html>

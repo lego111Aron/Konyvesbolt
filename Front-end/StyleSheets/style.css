@@ -166,6 +166,10 @@ input, select, .subgenres-select{
     outline: 0;
     cursor: pointer;
 }
+.admin-button-field button:hover,
+.button-field button:hover{
+    background: #3F3A2C;
+}
 
                         /* Admin felület*/
 
@@ -293,4 +297,303 @@ td{
 }
 #market-table th:nth-child(6){
     width: 10%;
+}
+
+
+
+                        /* Könyvek felület*/
+
+
+
+.szuro-doboz {
+    background-color: #beb58a;
+    padding: 40px;
+    border-radius: 40px;
+    max-width: 1200px;
+    margin: 50px auto auto auto;
+}
+
+.szuro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.kategoria-es-kereso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.kategoriak {
+    background-color: #f6f3db;
+    padding: 15px;
+    border-radius: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.kategoriak label {
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid #3c370d;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: white;
+}
+
+.kategoriak input[type="checkbox"] {
+    display: none;
+}
+
+.kategoriak input[type="checkbox"]:checked + span {
+    background-color: #3c370d;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.kereso {
+    flex: 0 0 300px;
+    padding: 15px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    background-color: var(--background-color);
+    font-size: 16px;
+}
+
+.arszuro {
+    flex: 1;
+}
+
+.arszuro input[type=range] {
+    width: 97%;
+    appearance: none;
+    height: 6px;
+    background: var(--background-color);
+    border-radius: 3px;
+    outline: none;
+}
+
+.arszuro input[type=range]::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3c370d;
+    cursor: pointer;
+}
+
+.arszuro input[type=range]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3c370d;
+    cursor: pointer;
+}
+
+.arszuro output {
+    display: block;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.szures-gomb {
+    background-color: #3c370d;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 20px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    align-self: center;
+}
+
+.szures-gomb:hover {
+    background-color: #2e2b0a;
+}
+
+/* Felhasználói fiók adatok oldal */
+
+
+.profile-form-container {
+    background: var(--sage-color);
+    padding: 50px 60px 70px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 10px;
+
+    width: 100%;
+    max-width: 400px;
+
+    text-align: center;
+}
+
+
+.profile-form-container h2{
+    font-size: 30px;
+    margin-bottom: 60px;
+    color: var(--oliveDarb-color);
+    position: relative;
+}
+
+.profile-form-container h2::after {
+    content: '';
+    width: 30px;
+    height: 4px;
+    border-radius: 3px;
+    background-color: var(--oliveDarb-color);
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.profile-grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 20px;
+}
+
+.profileform-group {
+    margin-bottom: 15px;
+}
+
+.profileform-group label {
+    font-size: 20px;
+    color: var(--oliveDarb-color);
+}
+
+.profileform-group input[type="text"],
+.profileform-group input[type="email"] {
+    background: var(--beige-color);
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    margin: 15px 0 0px;
+}
+
+
+.profile-form-container button {
+    flex-basis: 48%;
+    background: var(--oliveDarb-color);
+    color: var(--beige-color);
+    height: 40px;
+    border-radius: 20px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.profile-form-container button:hover {
+    background: #3F3A2C;
+}
+/* Áruházak oldal ÉS kiadók oldal lista */
+
+.store-container h1{
+    color: var(--oliveDarb-color);
+    text-align: center;
+}
+
+.store {
+    display: flex;
+    align-items: flex-start;
+    gap: 0px;
+    padding: 15px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.store img {
+    margin-left: 50px;
+    width: 100px;
+    height: auto;
+}
+
+.store-info {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+.store-adatok{
+    display: flex;
+    gap: 30px;
+    margin-top: 15px;
+}
+
+.store-info strong {
+    font-size: 20px;
+    margin-bottom: 5px;
+    align-self: center;
+}
+
+.store-info span {
+    margin-bottom: 2px;
+}
+
+.store-container {
+    width: 80%;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Könyvek listázása */
+.konyvek-lista {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--beige-color);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.konyvek-lista h2 {
+    text-align: center;
+    color: var(--oliveDarb-color);
+    margin-bottom: 20px;
+}
+
+.konyvek {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.konyv {
+    background-color: white;
+    border: 2px solid var(--oliveDarb-color);
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.konyv h3 {
+    font-size: 18px;
+    color: var(--oliveDarb-color);
+    margin-bottom: 10px;
+}
+
+.konyv p {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #333;
 }
