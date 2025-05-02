@@ -46,7 +46,7 @@
         return $results;
     }
 
-    function sessionTest(bool $toPrint=false) {
+    function sessionTest(bool $toPrint=false, bool $maintainSession=true) {
         session_start();
 
         if (isset($_SESSION["username"])) {
@@ -65,6 +65,11 @@
             }
 
             return false;
+        }
+
+        if (!$maintainSession) {
+            session_unset();
+            session_destroy();
         }
     }
 ?>
