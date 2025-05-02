@@ -473,7 +473,9 @@ td{
 }
 
 .profileform-group input[type="text"],
-.profileform-group input[type="email"] {
+.profileform-group input[type="email"],
+.profileform-group input[type="password"],
+.profileform-group input[type="tel"] {
     background: var(--beige-color);
     width: 100%;
     padding: 10px;

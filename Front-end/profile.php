@@ -54,29 +54,39 @@ oci_close($conn);
 
     <form class="profile-form-container" method="post" action="../Back-End/authentication/update_data.php">
         <h2>Fiók adatok</h2>
-
+    
         <div class="profile-grid-container">
             <div class="profileform-group">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" value="<?= htmlspecialchars($user['EMAIL']) ?>">
             </div>
-
+    
             <div class="profileform-group">
                 <label for="username">Felhasználónév</label>
                 <input type="text" name="username" id="username" value="<?= htmlspecialchars($user['FELHASZNALONEV']) ?>" readonly>
             </div>
-
+    
             <div class="profileform-group">
                 <label for="phone">Telefon</label>
-                <input type="text" name="phone" id="phone" placeholder="Telefonszám" pattern="^06\d{2}\d{3}\d{4}$" value="<?= htmlspecialchars($user['TELEFON']) ?>">
+                <input type="tel" name="phone" id="phone" placeholder="Telefonszám" pattern="^06\d{2}\d{3}\d{4}$" value="<?= htmlspecialchars($user['TELEFON']) ?>">
             </div>
-
+    
             <div class="profileform-group">
                 <label for="address">Lakcím</label>
                 <input type="text" name="address" id="address" value="<?= htmlspecialchars($user['LAKCIM']) ?>">
             </div>
+    
+            <div class="profileform-group">
+                <label for="password">Jelszó</label>
+                <input type="password" name="password" id="password" placeholder="Új jelszó">
+            </div>
+    
+            <div class="profileform-group">
+                <label for="member">Törzsvásárló</label>
+                <input type="text" name="member" id="member" value="<?= $user['TORZSVASARLO'] == 'Y' ? 'Igen' : 'Nem' ?>" readonly>
+            </div>
         </div>
-
+    
         <button type="submit">Mentés</button>
     </form>
 

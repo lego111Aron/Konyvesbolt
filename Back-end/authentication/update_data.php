@@ -1,7 +1,6 @@
 <?php
 include __DIR__ . "/base.php";
 
-// Ellenőrizzük, hogy van-e bejelentkezett felhasználó
 if (!sessionTest()) {
     header("Location: login.php");
     exit();
@@ -12,17 +11,18 @@ $username = $_SESSION["username"];
 $newEmail = $_POST['email'];
 $newPhone = $_POST['phone'];
 $newAddress = $_POST['address'];
+$newPassword = $_POST['password']; // opcionális
 
 include __DIR__ . "/../connect.php";
 
-// Lekérjük a jelenlegi felhasználót
+// Jelenlegi adatok lekérése
 $query = "SELECT * FROM FELHASZNALO WHERE FELHASZNALONEV = :username";
 $stmt = oci_parse($conn, $query);
 oci_bind_by_name($stmt, ":username", $username);
 oci_execute($stmt);
 $currentUser = oci_fetch_assoc($stmt);
 
-// Ha az email megváltozik, ellenőrizzük, hogy másnál már foglalt-e
+// Email ellenőrzés
 if ($newEmail !== $currentUser['EMAIL']) {
     $checkEmailQuery = "SELECT COUNT(*) AS CNT FROM FELHASZNALO WHERE EMAIL = :email AND FELHASZNALONEV != :username";
     $checkStmt = oci_parse($conn, $checkEmailQuery);
@@ -42,18 +42,35 @@ if ($newEmail !== $currentUser['EMAIL']) {
     oci_free_statement($checkStmt);
 }
 
-// Ellenőrizzük, hogy történt-e változás
+// Változások ellenőrzése
 $changes = false;
+$updatePassword = false;
+
 if ($newEmail !== $currentUser['EMAIL']) $changes = true;
 if ($newPhone !== $currentUser['TELEFON']) $changes = true;
 if ($newAddress !== $currentUser['LAKCIM']) $changes = true;
+if (!empty($newPassword)) {
+    $changes = true;
+    $updatePassword = true;
+    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+}
 
 if ($changes) {
-    $updateQuery = "UPDATE FELHASZNALO 
-                    SET EMAIL = :email, TELEFON = :phone, LAKCIM = :address 
-                    WHERE FELHASZNALONEV = :username";
+    if ($updatePassword) {
+        $updateQuery = "UPDATE FELHASZNALO 
+                        SET EMAIL = :email, TELEFON = :phone, LAKCIM = :address, JELSZO = :password
+                        WHERE FELHASZNALONEV = :username";
 
-    $updateStmt = oci_parse($conn, $updateQuery);
+        $updateStmt = oci_parse($conn, $updateQuery);
+        oci_bind_by_name($updateStmt, ":password", $hashedPassword);
+    } else {
+        $updateQuery = "UPDATE FELHASZNALO 
+                        SET EMAIL = :email, TELEFON = :phone, LAKCIM = :address
+                        WHERE FELHASZNALONEV = :username";
+
+        $updateStmt = oci_parse($conn, $updateQuery);
+    }
+
     oci_bind_by_name($updateStmt, ":email", $newEmail);
     oci_bind_by_name($updateStmt, ":phone", $newPhone);
     oci_bind_by_name($updateStmt, ":address", $newAddress);
