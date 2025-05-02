@@ -9,9 +9,7 @@ $tns = "
     )
 )";
 
-// FIXME: vissza kell állítani az eredetire
-// $conn = oci_connect('C##O4005C', 'Adatbalapu123', $tns, 'UTF8');
-$conn = oci_connect('C##JCNOSO', '34757268tIsH', $tns, 'UTF8');
+$conn = oci_connect('C##O4005C', 'Adatbalapu123', $tns, 'UTF8');
 
 if (!$conn) {
     $error_message = oci_error();
