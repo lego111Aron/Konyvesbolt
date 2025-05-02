@@ -1,6 +1,6 @@
 <?php
     include "../connect.php";
-    include "test.php";
+    include "base.php";
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $name = substr(trim($_POST["NEV"] ?? ''), 0, 100);

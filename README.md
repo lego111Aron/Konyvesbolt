@@ -20,4 +20,4 @@ A projekt futtatásához szükséges a `PuTTY` és a `XAMPP` apache szerver.
 
 Ezek elindítását követően a projekt elérhető az alábbi linken: http://localhost/Konyvesbolt/Front-end/
 
-Abban az esetben ha le szeretné ellenőrizni, hogy van-e aktuálisan bejelentkezett felhasználó, esetleg, hogy mi a felhasználók tábla tartalma az adatbázisban ezt megteheti az alábbi linken: http://localhost/Konyvesbolt/Back-end/authentication/test.php
+Abban az esetben ha le szeretné ellenőrizni, hogy van-e aktuálisan bejelentkezett felhasználó, esetleg, hogy mi a felhasználók tábla tartalma az adatbázisban ezt megteheti az alábbi linken: http://localhost/Konyvesbolt/Back-end/authentication/print.php

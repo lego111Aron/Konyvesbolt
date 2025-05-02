@@ -1,6 +1,6 @@
 <?php
 include "../connect.php";
-include "test.php";
+include "base.php";
 
 if (!$conn) {
     $e = oci_error();

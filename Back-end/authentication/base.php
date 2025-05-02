@@ -1,6 +1,6 @@
 <?php
     function fetchUsers(bool $toPrint = false) {
-        include "../connect.php";
+        include __DIR__ . "/../connect.php"; // Helyes útvonal meghatározása
 
         $query = "SELECT * FROM FELHASZNALO";
         $stid = oci_parse($conn, $query);  // A lekérdezés előkészítése
@@ -67,11 +67,4 @@
             return false;
         }
     }
-
-    sessionTest(true);
-
-    // echo "<pre>";
-    // print_r(fetchUsers());
-    // echo "</pre>";
-    fetchUsers(true);
 ?>
