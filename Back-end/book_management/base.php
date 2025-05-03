@@ -5,25 +5,33 @@ function fetchBooks(bool $toPrint = false, array $filter = []) {
     $search = !empty($filter["search"]) ? $filter["search"] : null;
     $minPrice = 0;
     $maxPrice = 999999;
+    $genres = !empty($filter["genres"]) ? $filter["genres"] : [];
 
     if (!empty($filter["price"]) && is_array($filter["price"]) && count($filter["price"]) == 2) {
         $minPrice = $filter["price"][0];
         $maxPrice = $filter["price"][1];
     }
 
-    // Lekérdezés előkészítése
-    $stid = oci_parse($conn, "BEGIN FETCH_FILTERED_BOOKS(:search, :min_price, :max_price, :result); END;");
+    // STR_ARRAY típus használata
+    $genreArray = oci_new_collection($conn, 'STR_ARRAY');
+    if (!$genreArray) {
+        die("Nem sikerült létrehozni a STR_ARRAY típusú collection-t.");
+    }
 
-    // Paraméterek bindolása
+    foreach ($genres as $genre) {
+        $genreArray->append(strtolower($genre));
+    }
+
+    $stid = oci_parse($conn, "BEGIN FETCH_FILTERED_BOOKS(:search, :min_price, :max_price, :genres, :result); END;");
+
     oci_bind_by_name($stid, ":search", $search);
     oci_bind_by_name($stid, ":min_price", $minPrice);
     oci_bind_by_name($stid, ":max_price", $maxPrice);
+    oci_bind_by_name($stid, ":genres", $genreArray, -1, OCI_B_NTY);
 
-    // Kimeneti paraméter (REF CURSOR)
     $cursor = oci_new_cursor($conn);
     oci_bind_by_name($stid, ":result", $cursor, -1, OCI_B_CURSOR);
 
-    // Futtatás
     oci_execute($stid);
     oci_execute($cursor);
 
@@ -38,6 +46,7 @@ function fetchBooks(bool $toPrint = false, array $filter = []) {
             "Price" => $row["AR"],
             "TaxNumber" => $row["ADOSZAM"],
             "ID" => $row["ID"]
+            // FIXME: hozza kell adni a műfajt is
         ];
 
         if ($toPrint) {
@@ -56,7 +65,6 @@ function fetchBooks(bool $toPrint = false, array $filter = []) {
         $id++;
     }
 
-    // Erőforrások felszabadítása
     oci_free_statement($stid);
     oci_free_statement($cursor);
     oci_close($conn);
