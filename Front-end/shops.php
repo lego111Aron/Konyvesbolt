@@ -18,20 +18,8 @@ oci_execute($stid);                // Lekérdezés végrehajtása
 
 <body id="shopsBody">
 
-    <!--Fejléc-->
-    <div class="topbar">
-        <div class="logo"><a href="index.php">BOOK<span>25</span>.hu</a></div>
-        <div class="login"><a href="login.php">Bejelentkezés</a></div>
-    </div>
-
-    <!--Menü-->
-    <div class="navbar">
-        <a href="index.php">Főoldal</a>
-        <a href="books.php">Könyvek</a>
-        <a href="authors.php">Kiadók</a>
-        <a href="shops.php">Áruházak</a>
-        <a href="#">Statisztikák</a>
-    </div>
+    <!--Fejléc és a menü-->
+    <?php include "header.php"; ?>
 
     <div class="store-container">
             <h1>ÁRUHÁZAINK</h1>
