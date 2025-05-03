@@ -1,0 +1,157 @@
+#chart-container {
+    display: block;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .chart-item {
+    width: 60%;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 150px 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+  }
+  .chart-item div{
+    text-align: center;
+  }
+  
+  .chart-item img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: contain;
+  }
+  
+  .chart-info {
+    text-align: left;
+  }
+  
+  .chart-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  
+  .chart-actions input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    font-size: 1rem;
+    border: 1px solid darkgoldenrod;
+    border-radius: 10px;
+  }
+  
+  .chart-actions button,
+  .chart-actions input[type="button"] {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .chart-actions button {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .chart-actions input[type="button"] {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .chart-actions button:hover {
+    background-color: #45a049;
+  }
+  
+  .chart-actions input[type="button"]:hover {
+    background-color: #d32f2f;
+  }
+
+  hr{
+    width: 70%;
+    height: 1px solid grey;
+  }
+  #order-container {
+    display: block;
+    width: 70%;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Árnyék hozzáadása */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  #order-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  #order-container input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  #order-container button {
+    width: 40%;
+    padding: 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  
+  #order-container button:hover {
+    background-color: #45a049;
+  }
+  
+
+  fieldset {
+    width: 40%;
+    margin: auto;
+    text-align: center;
+    border: 2px solid #4caf50;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+  }
+  
+  legend {
+    font-weight: bold;
+    color: #4caf50;
+    font-size: 1.2rem;
+  }
+  
+  .card-details {
+    display: flex;
+    gap: 20px;
+    width: 60%;
+    margin: auto;
+  }
+  
+  .card-details input {
+    width: 48%;
+
+  }
+  
+  .expiration-date input,
+  .cvv input {
+    width: 100%;
+  }
+#price{
+    font-size: 23px;
+}
