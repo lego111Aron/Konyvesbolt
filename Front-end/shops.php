@@ -30,6 +30,7 @@ oci_execute($stid);                // Lekérdezés végrehajtása
         <a href="books.php">Könyvek</a>
         <a href="authors.php">Kiadók</a>
         <a href="shops.php">Áruházak</a>
+        <a href="basket.php">Kosár</a>
         <a href="#">Statisztikák</a>
     </div>
 

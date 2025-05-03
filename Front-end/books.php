@@ -41,6 +41,7 @@ $books = fetchBooks(false, $filter); // Fetch books with filters
         <a href="books.php">Könyvek</a>
         <a href="authors.php">Kiadók</a>
         <a href="shops.php">Áruházak</a>
+        <a href="basket.php">Kosár</a>
         <a href="#">Statisztikák</a>
     </div>
 
