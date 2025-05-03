@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="StyleSheets/style.css">
 </head>
 
-<body id="indexBody">
+<body id="profileBody">
 
     <!--Fejléc-->
     <div class="topbar">

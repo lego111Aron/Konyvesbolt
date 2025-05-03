@@ -77,6 +77,8 @@ body{
 #loginBody,
 #registerBody{
     font-family: 'Poppins', sans-serif;
+    height: 100%;
+    overflow: hidden;
 }
 
 .container{
@@ -554,6 +556,7 @@ td{
 }
 
 /* Könyvek listázása */
+
 .konyvek-lista {
     max-width: 1200px;
     margin: 50px auto;

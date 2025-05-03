@@ -15,7 +15,7 @@ oci_execute($stid);                // Lekérdezés végrehajtása
     <link rel="stylesheet" href="StyleSheets/style.css">
 </head>
 
-<body id="indexBody">
+<body id="authorsBody">
 
     <!--Fejléc-->
     <div class="topbar">
