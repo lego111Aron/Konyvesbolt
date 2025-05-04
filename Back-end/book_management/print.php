@@ -1,5 +1,8 @@
 <?php
 include "base.php";
+include "../authentication/base.php";
+
+printAllSessionData();
 
 // Például így lehet meghívni kiíratással:
 fetchGenres(true);
