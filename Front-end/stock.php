@@ -85,7 +85,7 @@
         <?php foreach ($raktarkeszlet as $konyv): ?>
     
                 <tr>
-                    <form method="POST" action="stock_update.php">
+                    <form method="POST" action="../Back-end/book_management/stock_update.php">
                         <td><?= htmlspecialchars($konyv->ISBN) ?></td>
                         <td><?= htmlspecialchars($konyv->CIM) ?></td>
                         <td>
