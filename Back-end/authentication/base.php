@@ -74,4 +74,21 @@
             session_destroy();
         }
     }
+
+    function printAllSessionData() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        echo "<br>----------------<br>";
+        echo "Session Data:<br>";
+        foreach ($_SESSION as $key => $value) {
+            if (is_array($value)) {
+                echo $key . ": " . json_encode($value) . "<br>";
+            } else {
+                echo $key . ": " . $value . "<br>";
+            }
+        }
+        echo "----------------<br>";
+    }
 ?>

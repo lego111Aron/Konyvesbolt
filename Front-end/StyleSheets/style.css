@@ -602,3 +602,21 @@ td{
     margin: 5px 0;
     color: #333;
 }
+
+
+/* Kosárba gomb stílusa */
+.kosarba-gomb {
+    background-color: #3c370d; /* Az oldal színsémájához illeszkedő szín */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.kosarba-gomb:hover {
+    background-color: #2e2b0a; /* Sötétebb árnyalat hover állapotban */
+    transform: scale(1.05); /* Enyhe nagyítás hover állapotban */
+}

@@ -88,5 +88,28 @@ $books = fetchBooks(false, $filter);
         <?php endif; ?>
     </div>
 
+    <script>
+        document.querySelectorAll('.kosarba-gomb').forEach(button => {
+            button.addEventListener('click', () => {
+                const isbn = button.parentElement.querySelector('p strong + text')?.textContent || 
+                            button.parentElement.querySelector('p:nth-child(2)')?.innerText.replace('ISBN: ', '').trim();
+
+                fetch('../Back-End/book_management/add_to_cart.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'isbn=' + encodeURIComponent(isbn)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("A könyv a kosárba került!");
+                    } else {
+                        alert("Hiba történt a kosárba helyezéskor.");
+                    }
+                });
+            });
+        });
+    </script>
+    
 </body>
 </html>

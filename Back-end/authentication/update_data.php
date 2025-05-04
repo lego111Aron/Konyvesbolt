@@ -77,6 +77,11 @@ if ($changes) {
     oci_bind_by_name($updateStmt, ":username", $username);
     oci_execute($updateStmt);
 
+    // Session frissítése, ha az email megváltozott és tárolva van benne
+    if (isset($_SESSION['email']) && $newEmail !== $currentUser['EMAIL']) {
+        $_SESSION['email'] = $newEmail;
+    }
+
     echo "<script>alert('A profiladatok sikeresen frissítve lettek.'); window.location.href = '../../Front-end/profile.php';</script>";
 } else {
     echo "<script>alert('Nincs változtatás a profiladatokban.'); window.location.href = '../../Front-end/profile.php';</script>";
