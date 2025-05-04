@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="StyleSheets/style.css">
+    <link rel="stylesheet" href="StyleSheets/stock_style.css">
     <title>Raktárkészlet</title>
 </head>
 <?php
@@ -51,10 +52,7 @@
     while ($row = oci_fetch_object($stid)) {
         $raktarkeszlet[] = $row;
     }
-    echo "<pre>";
 
-    print_r($raktarkeszlet);
-    echo "</pre>";
 
 
 ?>
@@ -77,7 +75,29 @@
 
     <div id="content">
         <h1>Raktárkészlet</h1>
-        
+        <table>
+        <tr>
+                <th>ISBN</th>
+                <th>Cím</th>
+                <th>Raktárkészlet</th>
+                <th>Művelet</th>
+            </tr>
+        <?php foreach ($raktarkeszlet as $konyv): ?>
+    
+                <tr>
+                    <form method="POST" action="stock_update.php">
+                        <td><?= htmlspecialchars($konyv->ISBN) ?></td>
+                        <td><?= htmlspecialchars($konyv->CIM) ?></td>
+                        <td>
+                            <input type="number" name="keszlet" value="<?= $konyv->BOLT_KESZLET ?>" min="0">
+                            <input type="hidden" name="isbn" value="<?= htmlspecialchars($konyv->ISBN) ?>">
+                        </td>
+                        <td><button type="submit">Mentés</button></td>
+                    </form>
+                </tr>
+          
+            <?php endforeach; ?>
+            </table>
 
     </div>
 
