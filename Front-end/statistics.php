@@ -9,7 +9,6 @@
     <?php
         include "../Back-end/connect.php";
         $array = array();
-        //mufaj amibol a legtobb konyvet adtak el
         $query= "SELECT mufaj.mufaj_nev, SUM(vasarol.darab) as eladas
                 FROM mufaj
                 JOIN konyv on konyv.id=mufaj.id
@@ -25,7 +24,6 @@
         }
         oci_free_statement($stmt);
 
-        //A legtöbb elérhető könyvet jegyző szerző
         $szerzos=array();
         $query= "SELECT szerzo.nev, COUNT(szerez.ISBN) as konyvek_szama
                 FROM szerzo
