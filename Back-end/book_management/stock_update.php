@@ -34,33 +34,24 @@
                 oci_bind_by_name($stid, ':keszlet', $keszlet);
                 oci_execute($stid);
                 oci_free_statement($stid);
-                header("Location: ../../Front-end/stock.php"); // Irányítjuk a stock.php oldalra");
+                //header("Location: ../../Front-end/stock.php"); // Irányítjuk a stock.php oldalra");
             }else if($count == 1){
-                if($keszlet==0){
-                    $query = "DELETE FROM van WHERE id = :bolt_id AND isbn = :isbn";
-                    $stid = oci_parse($conn, $query);
-                    oci_bind_by_name($stid, ':bolt_id', $bolt_id);
-                    oci_bind_by_name($stid, ':isbn', $isbn);
-                    oci_execute($stid);
-                    oci_free_statement($stid);
-                    header("Location: ../../Front-end/stock.php");
-                }else{
-                    $query = "UPDATE van SET keszlet = :keszlet WHERE id = :bolt_id AND isbn = :isbn";
-                    $stid = oci_parse($conn, $query);
-                    oci_bind_by_name($stid, ':bolt_id', $bolt_id);
-                    oci_bind_by_name($stid, ':isbn', $isbn);
-                    oci_bind_by_name($stid, ':keszlet', $keszlet);
-                    oci_execute($stid);
-                    oci_free_statement($stid);
-                    header("Location: ../../Front-end/stock.php");
-                }
+                $query = "UPDATE van SET keszlet = :keszlet WHERE id = :bolt_id AND isbn = :isbn";
+                $stid = oci_parse($conn, $query);
+                oci_bind_by_name($stid, ':bolt_id', $bolt_id);
+                oci_bind_by_name($stid, ':isbn', $isbn);
+                oci_bind_by_name($stid, ':keszlet', $keszlet);
+                oci_execute($stid);
+                oci_free_statement($stid);
+                //header("Location: ../../Front-end/stock.php");
+                
             }else{
                 echo "Hiba: Túl sok sor található a van táblában az adott boltban és könyv isbn számával.";
                 echo "<a href='../../Front-end/stock.php'>Vissza a raktárhoz</a>";
                 oci_free_statement($stid);
             }
         }else{
-            header("Location: ../../Front-end/ "); // Ha nem POST kérés, irányítjuk az index oldalra
+            //header("Location: ../../Front-end/ "); // Ha nem POST kérés, irányítjuk az index oldalra
         }
 
 ?>
