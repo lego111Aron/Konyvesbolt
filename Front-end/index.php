@@ -18,8 +18,10 @@
     <h2><a href="admin.php">Műfajok + áruházak kezelése</a></h2>
     <h2><a href="bookregister.php">Könyvek + kiadók kezelése</a></h2>
     
-    <h2><a href="../Back-end/authentication/logout.php">Kijelentkezés</a></h2>
+    <h2><a href="../Back-end/authentication/logout.php">Kijelentkezés</a></h2>    
     <h2><a href="../Back-end/authentication/delete_user.php" onclick="return confirm('Biztosan törölni szeretné a fiókját?')">Fiók törlése</a></h2>
+    <h2><a href="../Back-end/authentication/print.php">Felhasználók</a></h2>
+
     <h1>Legtöbbet eladott könyveink</h1><br>
     <div id="bestsellers-container">
       
