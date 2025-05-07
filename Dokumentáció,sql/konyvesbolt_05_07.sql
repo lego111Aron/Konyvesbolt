@@ -1,6 +1,20 @@
 --------------------------------------------------------
---  File created - szerda-április-23-2025   
+--  File created - szerda-május-07-2025   
 --------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Type NUM_ARRAY
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TYPE "NUM_ARRAY" AS TABLE OF NUMBER;
+
+/
+--------------------------------------------------------
+--  DDL for Type STR_ARRAY
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TYPE "STR_ARRAY" AS TABLE OF VARCHAR2(100);
+
+/
 --------------------------------------------------------
 --  DDL for Table ALMUFAJ
 --------------------------------------------------------
@@ -180,7 +194,8 @@
 
   CREATE TABLE "VASAROL" 
    (	"ID" NUMBER, 
-	"ISBN" VARCHAR2(17 BYTE)
+	"ISBN" VARCHAR2(17 BYTE), 
+	"DARAB" NUMBER DEFAULT 1
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -190,6 +205,7 @@
   TABLESPACE "USERS" ;
 REM INSERTING into ALMUFAJ
 SET DEFINE OFF;
+Insert into ALMUFAJ (ID,ALMUFAJ_NEV) values ('61','Gyerekregény');
 Insert into ALMUFAJ (ID,ALMUFAJ_NEV) values ('1','Romantikus');
 Insert into ALMUFAJ (ID,ALMUFAJ_NEV) values ('2','Krimi');
 Insert into ALMUFAJ (ID,ALMUFAJ_NEV) values ('3','Horror');
@@ -201,6 +217,8 @@ REM INSERTING into ALMUFAJA
 SET DEFINE OFF;
 Insert into ALMUFAJA (ISBN,ID) values ('1122334455','2');
 Insert into ALMUFAJA (ISBN,ID) values ('1122334455','3');
+Insert into ALMUFAJA (ISBN,ID) values ('34534623','2');
+Insert into ALMUFAJA (ISBN,ID) values ('34534623','3');
 Insert into ALMUFAJA (ISBN,ID) values ('345678912','4');
 Insert into ALMUFAJA (ISBN,ID) values ('54321987619','2');
 Insert into ALMUFAJA (ISBN,ID) values ('54321987619','3');
@@ -211,29 +229,39 @@ Insert into ALMUFAJA (ISBN,ID) values ('978-963-405-987-6','7');
 Insert into ALMUFAJA (ISBN,ID) values ('978-963-419-865-5','4');
 Insert into ALMUFAJA (ISBN,ID) values ('978-963-504-391-6','2');
 Insert into ALMUFAJA (ISBN,ID) values ('978-963-999-882-4','6');
+Insert into ALMUFAJA (ISBN,ID) values ('9786155385676','4');
+Insert into ALMUFAJA (ISBN,ID) values ('9786155385677','2');
+Insert into ALMUFAJA (ISBN,ID) values ('9789634157311','61');
+Insert into ALMUFAJA (ISBN,ID) values ('9789634157960','61');
+Insert into ALMUFAJA (ISBN,ID) values ('9789635877508','7');
 Insert into ALMUFAJA (ISBN,ID) values ('9789635983391','6');
 Insert into ALMUFAJA (ISBN,ID) values ('98765432123','7');
 Insert into ALMUFAJA (ISBN,ID) values ('987654321234','7');
 REM INSERTING into ARUHAZ
 SET DEFINE OFF;
-Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('41','6722 Szeged, Mars tér 4.','valamiemail@gmail.com','06301233534','peterhorvath');
+Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('101','7100 Szekszárd, Bolt u. 12','boltutcaibolt@gmail.com','06302541875','uzletvezeto1');
+Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('41','6722 Szeged, Mars tér 4.','valamiemail@gmail.com','06301233534',null);
 Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('1','1051 Budapest, Deák Ferenc tér 1.','aruhaz1@example.com','0612345678','janoskovacs');
 Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('2','1051 Budapest, Deák Ferenc tér 1.','aruhaz1@example.com','0612345678','janoskovacs');
 Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('3','1065 Budapest, Andrássy út 2.','aruhaz2@example.com','0618765432','mariaszabo');
-Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('4','1077 Budapest, Rákóczi út 3.','aruhaz3@example.com','0615678901','peterhorvath');
+Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('4','1077 Budapest, Rákóczi út 3.','aruhaz3@example.com','0615678901',null);
 Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('5','1082 Budapest, Orczy tér 4.','aruhaz4@example.com','0612349898','gaborkiss');
 Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('6','1093 Budapest, Corvin sétány 8.','ARUHAZ5@example.com','0619876543','annafarkas');
 Insert into ARUHAZ (ID,CIM,EMAIL,TELEFON,FELHASZNALO) values ('22','6722 Szeged, Mars tér 1.','elsoaruhaz@gmail.com','06301234567','janoskovacs');
 REM INSERTING into FELHASZNALO
 SET DEFINE OFF;
+Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('uzletvezeto1','uzletvezeto1@gmail.com','Uzlet Vezeto','uzletvezeto','7100 Szekszárd, Bolt utca 1','06302584712','$2y$10$iPL7lirYNrceS9T2rhH0VePRcOB6SL9OJhfnv6sZ9lVgx.HTWjsk.','N');
+Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('test3','test3@test3','test3','felhasznalo','test3','06700000000','$2y$10$6lWmC.Q0baJhN1dNk75n9uSGHkDRFqlOMHdbTY/.Z/VmQghbXlY1.','N');
+Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('vendeg',null,null,null,'Ismeretlen',null,null,null);
 Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('janoskovacs','janos.kovacs@example.com','Kovács János','felhasznalo','1234 Budapest, Kossuth utca 10.','06201234567','jelszo123','I');
 Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('mariaszabo','maria.szabo@example.com','Szabó Mária','admin','1235 Budapest, Petőfi utca 5.','06207654321','biztonsagos','N');
-Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('peterhorvath','peter.horvath@example.com','Horváth Péter','uzletvezeto','1111 Budapest, Duna utca 3.','06209876543','titkos123','I');
 Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('gaborkiss','gabor.kiss@example.com','Kiss Gábor','admin','1088 Budapest, Nagykörút 1.','06301234567','erospass99','I');
 Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('annafarkas','anna.farkas@example.com','Farkas Anna','felhasznalo','1094 Budapest, Fő tér 5.','06309876123','anna2024','N');
-Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('test','test@test','test','felhasznalo','test','06700000000','$2y$10$RtI8aaNJv4GfEqI1HxSm..rIuC7WPbBytgpbBO0oWFv388wYAx3vG','N');
+Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('test4','test4@test4.com','test4','uzletvezeto','test4','06700000000','$2y$10$W8MXAlFzSgMvIikDYZdR5eeICcas3tSa.imXRrGFQzX/K11vb.K96','N');
+Insert into FELHASZNALO (FELHASZNALONEV,EMAIL,NEV,SZEREPKOR,LAKCIM,TELEFON,JELSZO,TORZSVASARLO) values ('test','test@test','test','felhasznalo','testttt','06700000001','$2y$10$t2FFETldLotvhQaCCPTin.LqqKBI/cL7ofiTwHaFVxBrqo0ylpQsm','I');
 REM INSERTING into KIADO
 SET DEFINE OFF;
+Insert into KIADO (ADOSZAM,NEV,SZEKHELY) values ('1000000000010','Valamk','Szeged');
 Insert into KIADO (ADOSZAM,NEV,SZEKHELY) values ('1000000000001','Libri Kiadó','Budapest, Andrássy út 1.');
 Insert into KIADO (ADOSZAM,NEV,SZEKHELY) values ('1000000000002','Európa Könyvkiadó','Budapest, Rákóczi út 12.');
 Insert into KIADO (ADOSZAM,NEV,SZEKHELY) values ('1000000000003','Agave Könyvek','Budapest, Kálvin tér 3.');
@@ -244,23 +272,30 @@ REM INSERTING into KONYV
 SET DEFINE OFF;
 Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('987654321234',to_date('24-NOV.  -11','RR-MON-DD'),'TESZTLEGUJABB','250','2000','1000000000002','3');
 Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('98765432123',to_date('24-NOV.  -11','RR-MON-DD'),'TesztLEgujabb','100','2379','1000000000002','3');
-Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9789635983391',to_date('25-ÁPR.  -20','RR-MON-DD'),'Az aratás hajnala','397','6514','1000000000004',null);
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9789635983391',to_date('25-ÁPR.  -20','RR-MON-DD'),'Az aratás hajnala','397','6514','1000000000004','41');
 Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('1122334455',to_date('23-DEC.  -12','RR-MON-DD'),'Képpng','200','20000','1000000000004','6');
 Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('54321987619',to_date('10-OKT.  -10','RR-MON-DD'),'TesztekCucc','300','7899','1000000000003','4');
 Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('345678912',to_date('03-MÁJ.  -10','RR-MON-DD'),'Kepesteszt','2000','20000','1000000000004','2');
-Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('978-963-419-865-5',to_date('20-MÁJ.  -14','RR-MON-DD'),'Alapítvány','320','4500','1000000000001',null);
-Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('978-963-999-882-4',to_date('54-JÚL.  -29','RR-MON-DD'),'A Gyűrűk Ura','1216','9900','1000000000002',null);
-Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('978-963-504-391-6',to_date('34-JAN.  -01','RR-MON-DD'),'Gyilkosság az Orient expresszen','288','3990','1000000000003',null);
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('34534623',to_date('25-ÁPR.  -04','RR-MON-DD'),'Könyve','200','10000','1000000000001','3');
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9789634157960',to_date('22-ÁPR.  -12','RR-MON-DD'),'Légy jó mindhalálig','307','2975','1000000000002','81');
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('978-963-419-865-5',to_date('20-MÁJ.  -14','RR-MON-DD'),'Alapítvány','320','4500','1000000000001','3');
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('978-963-999-882-4',to_date('54-JÚL.  -29','RR-MON-DD'),'A Gyűrűk Ura','1216','9900','1000000000002','4');
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('978-963-504-391-6',to_date('34-JAN.  -01','RR-MON-DD'),'Gyilkosság az Orient expresszen','288','3990','1000000000003','41');
 Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('978-963-136-616-6',to_date('14-SZEPT.-04','RR-MON-DD'),'Sapiens','498','5500','1000000000004','6');
-Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('978-963-405-987-6',to_date('84-ÁPR.  -01','RR-MON-DD'),'A lét elviselhetetlen könnyűsége','314','4200','1000000000005',null);
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('978-963-405-987-6',to_date('84-ÁPR.  -01','RR-MON-DD'),'A lét elviselhetetlen könnyűsége','314','4200','1000000000005','41');
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9786155385677',to_date('25-ÁPR.  -30','RR-MON-DD'),'test','1','1000','1000000000010','41');
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9789634157311',to_date('22-DEC.  -01','RR-MON-DD'),'Disznók az esőben','8','1275','1000000000001','81');
 Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('731299777',to_date('20-MÁRC. -10','RR-MON-DD'),'Kepes2','200','2000','1000000000004','2');
-Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9786150196343',to_date('24-JÚN.  -10','RR-MON-DD'),'Prédák háza','353','3913','1000000000001',null);
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9786150196343',to_date('24-JÚN.  -10','RR-MON-DD'),'Prédák háza','353','3913','1000000000001','41');
 Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('987654321',to_date('24-NOV.  -11','RR-MON-DD'),'TesztLEgujabb','100','2379','1000000000002','3');
-Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9786155385674',to_date('02-FEBR. -20','RR-MON-DD'),'Egri csillagok','303','2500','1000000000004',null);
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9786155385674',to_date('02-FEBR. -20','RR-MON-DD'),'Egri csillagok','303','2500','1000000000004','41');
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9789635877508',to_date('25-FEBR. -01','RR-MON-DD'),'Iciri-Piciri','14','2117','1000000000002','4');
+Insert into KONYV (ISBN,KIADAS,CIM,OLDALAK_SZAMA,AR,ADOSZAM,ID) values ('9786155385676',to_date('25-MÁJ.  -01','RR-MON-DD'),'test2','2','2000','1000000000010','2');
 REM INSERTING into MUFAJ
 SET DEFINE OFF;
 Insert into MUFAJ (ID,MUFAJ_NEV) values ('41','Regény');
-Insert into MUFAJ (ID,MUFAJ_NEV) values ('2','Verseskötet');
+Insert into MUFAJ (ID,MUFAJ_NEV) values ('81','Mesekönyv');
+Insert into MUFAJ (ID,MUFAJ_NEV) values ('2','Verseskötet2');
 Insert into MUFAJ (ID,MUFAJ_NEV) values ('3','Novella');
 Insert into MUFAJ (ID,MUFAJ_NEV) values ('4','Kisregény');
 Insert into MUFAJ (ID,MUFAJ_NEV) values ('5','Útikönyv');
@@ -276,18 +311,31 @@ Insert into SZEREZ (ISBN,ID) values ('1122334455','63');
 Insert into SZEREZ (ISBN,ID) values ('1122334455','64');
 Insert into SZEREZ (ISBN,ID) values ('54321987619','43');
 Insert into SZEREZ (ISBN,ID) values ('345678912','43');
+Insert into SZEREZ (ISBN,ID) values ('34534623','101');
+Insert into SZEREZ (ISBN,ID) values ('34534623','102');
+Insert into SZEREZ (ISBN,ID) values ('9789634157960','121');
+Insert into SZEREZ (ISBN,ID) values ('9786155385677','83');
+Insert into SZEREZ (ISBN,ID) values ('9789634157311','121');
+Insert into SZEREZ (ISBN,ID) values ('9786155385677','81');
+Insert into SZEREZ (ISBN,ID) values ('9786155385677','82');
 Insert into SZEREZ (ISBN,ID) values ('987654321','41');
 Insert into SZEREZ (ISBN,ID) values ('987654321','42');
 Insert into SZEREZ (ISBN,ID) values ('9786150196343','30');
 Insert into SZEREZ (ISBN,ID) values ('731299777','44');
 Insert into SZEREZ (ISBN,ID) values ('731299777','45');
 Insert into SZEREZ (ISBN,ID) values ('9786155385674','62');
+Insert into SZEREZ (ISBN,ID) values ('9786155385676','83');
+Insert into SZEREZ (ISBN,ID) values ('9789635877508','121');
+Insert into SZEREZ (ISBN,ID) values ('9786155385676','81');
+Insert into SZEREZ (ISBN,ID) values ('9786155385676','82');
 REM INSERTING into SZERZO
 SET DEFINE OFF;
 Insert into SZERZO (ID,NEV) values ('61','Suzanne Collins');
 Insert into SZERZO (ID,NEV) values ('64','Nemén is');
 Insert into SZERZO (ID,NEV) values ('43','Szerző Tesztelo');
 Insert into SZERZO (ID,NEV) values ('63','Ujszerzo vagyok én');
+Insert into SZERZO (ID,NEV) values ('101','Szerző');
+Insert into SZERZO (ID,NEV) values ('102','Szerző2');
 Insert into SZERZO (ID,NEV) values ('1','Isaac Asimov');
 Insert into SZERZO (ID,NEV) values ('2','J.R.R. Tolkien');
 Insert into SZERZO (ID,NEV) values ('3','Agatha Christie');
@@ -302,27 +350,63 @@ Insert into SZERZO (ID,NEV) values ('62','Gárdonyi Géza');
 Insert into SZERZO (ID,NEV) values ('81','A');
 Insert into SZERZO (ID,NEV) values ('82','B');
 Insert into SZERZO (ID,NEV) values ('83','C');
+Insert into SZERZO (ID,NEV) values ('121','Móricz Zsigmond');
 REM INSERTING into VAN
 SET DEFINE OFF;
+Insert into VAN (ISBN,ID,KESZLET) values ('978-963-999-882-4','101','25');
+Insert into VAN (ISBN,ID,KESZLET) values ('9786155385677','5','98');
+Insert into VAN (ISBN,ID,KESZLET) values ('9786155385676','1','95');
+Insert into VAN (ISBN,ID,KESZLET) values ('9786155385677','4','99');
 Insert into VAN (ISBN,ID,KESZLET) values ('978-963-419-865-5','5','3');
 Insert into VAN (ISBN,ID,KESZLET) values ('978-963-419-865-5','1','10');
 Insert into VAN (ISBN,ID,KESZLET) values ('978-963-419-865-5','4','1');
-Insert into VAN (ISBN,ID,KESZLET) values ('978-963-999-882-4','1','4');
-Insert into VAN (ISBN,ID,KESZLET) values ('978-963-999-882-4','4','21');
+Insert into VAN (ISBN,ID,KESZLET) values ('978-963-999-882-4','4','1');
+Insert into VAN (ISBN,ID,KESZLET) values ('978-963-419-865-5','101','15');
 REM INSERTING into VASARLAS
 SET DEFINE OFF;
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('44',to_date('25-MÁJ.  -07','RR-MON-DD'),'5000','testttt','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('38',to_date('25-MÁJ.  -07','RR-MON-DD'),'1000','test','vendeg');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('42',to_date('25-MÁJ.  -07','RR-MON-DD'),'4000','testttt','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('43',to_date('25-MÁJ.  -07','RR-MON-DD'),'5000','testttt','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('27',to_date('25-MÁJ.  -15','RR-MON-DD'),'5000','7100 Szekszárd','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('29',to_date('25-MÁJ.  -08','RR-MON-DD'),'1000','7100 SZekszárd utca utca 2','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('30',to_date('25-MÁJ.  -16','RR-MON-DD'),'1000','7100 SZekszárd utca utca 2','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('31',to_date('25-MÁJ.  -02','RR-MON-DD'),'1002','7100 SZekszárd utca utca 2','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('32',to_date('25-MÁJ.  -16','RR-MON-DD'),'2345','7100 SZekszárd utca utca 2','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('33',to_date('25-MÁJ.  -10','RR-MON-DD'),'3432','7100 SZekszárd utca utca 2eg','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('34',to_date('25-MÁJ.  -26','RR-MON-DD'),'20000','7100 SZekszárd utca utca 2','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('35',to_date('25-MÁJ.  -21','RR-MON-DD'),'3000','7100 SZekszárd utca utca 2','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('45',to_date('25-MÁJ.  -07','RR-MON-DD'),'99000','testttt','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('46',to_date('25-MÁJ.  -07','RR-MON-DD'),'99000','testttt','test');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('47',to_date('25-MÁJ.  -07','RR-MON-DD'),'49500','testttt','test');
 Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('1',to_date('24-DEC.  -14','RR-MON-DD'),'4500','1235 Budapest, Petőfi utca 5.','mariaszabo');
 Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('2',to_date('24-DEC.  -01','RR-MON-DD'),'9900','1234 Budapest, Kossuth utca 10.','janoskovacs');
-Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('3',to_date('25-JAN.  -06','RR-MON-DD'),'3990','1111 Budapest, Duna utca 3.','peterhorvath');
 Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('4',to_date('25-FEBR. -10','RR-MON-DD'),'5500','1088 Budapest, Nagykörút 1.','gaborkiss');
 Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('5',to_date('25-MÁRC. -10','RR-MON-DD'),'4200','1094 Budapest, Fő tér 5.','annafarkas');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('41',to_date('25-MÁJ.  -07','RR-MON-DD'),'8000','test4','vendeg');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('61',to_date('25-MÁJ.  -07','RR-MON-DD'),'8000','test','vendeg');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('39',to_date('25-MÁJ.  -07','RR-MON-DD'),'1000','test2','vendeg');
+Insert into VASARLAS (ID,DATUM,OSSZEG,SZALLITASI_CIM,FELHASZNALO) values ('40',to_date('25-MÁJ.  -07','RR-MON-DD'),'4000','test3','vendeg');
 REM INSERTING into VASAROL
 SET DEFINE OFF;
-Insert into VASAROL (ID,ISBN) values ('1','978-963-419-865-5');
-Insert into VASAROL (ID,ISBN) values ('2','978-963-999-882-4');
-Insert into VASAROL (ID,ISBN) values ('3','978-963-504-391-6');
-Insert into VASAROL (ID,ISBN) values ('4','978-963-136-616-6');
-Insert into VASAROL (ID,ISBN) values ('5','978-963-405-987-6');
+Insert into VASAROL (ID,ISBN,DARAB) values ('44','9786155385676','1');
+Insert into VASAROL (ID,ISBN,DARAB) values ('44','9786155385677','1');
+Insert into VASAROL (ID,ISBN,DARAB) values ('42','9786155385676','1');
+Insert into VASAROL (ID,ISBN,DARAB) values ('42','9786155385677','1');
+Insert into VASAROL (ID,ISBN,DARAB) values ('42','9786155385677','1');
+Insert into VASAROL (ID,ISBN,DARAB) values ('43','9786155385676','1');
+Insert into VASAROL (ID,ISBN,DARAB) values ('43','9786155385677','1');
+Insert into VASAROL (ID,ISBN,DARAB) values ('45','9789634157311','2');
+Insert into VASAROL (ID,ISBN,DARAB) values ('46','9789634157311','6');
+Insert into VASAROL (ID,ISBN,DARAB) values ('47','9789634157311','5');
+Insert into VASAROL (ID,ISBN,DARAB) values ('1','9789635877508','2');
+Insert into VASAROL (ID,ISBN,DARAB) values ('2','9789635877508','5');
+Insert into VASAROL (ID,ISBN,DARAB) values ('61','9786155385676','3');
+Insert into VASAROL (ID,ISBN,DARAB) values ('4','978-963-136-616-6','10');
+Insert into VASAROL (ID,ISBN,DARAB) values ('5','978-963-405-987-6','3');
+Insert into VASAROL (ID,ISBN,DARAB) values ('61','9786155385677','2');
+Insert into VASAROL (ID,ISBN,DARAB) values ('1','9786155385674','10');
+Insert into VASAROL (ID,ISBN,DARAB) values ('2','9789635983391','1');
 --------------------------------------------------------
 --  DDL for Index PK_ALMUFAJA
 --------------------------------------------------------
@@ -333,6 +417,319 @@ Insert into VASAROL (ID,ISBN) values ('5','978-963-405-987-6');
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Trigger DELETE_IF_STOCK_LOW
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DELETE_IF_STOCK_LOW" 
+AFTER UPDATE ON VAN
+FOR EACH ROW
+BEGIN
+    IF :NEW.keszlet < 1 THEN
+        DELETE FROM VAN WHERE ISBN=:NEW.ISBN AND ID=:NEW.ID AND KESZLET=:NEW.KESZLET;
+    END IF;
+END;
+
+/
+ALTER TRIGGER "DELETE_IF_STOCK_LOW" DISABLE;
+--------------------------------------------------------
+--  DDL for Trigger DELETE_IF_STOCK_LOW_AFTER_STATEMENT
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DELETE_IF_STOCK_LOW_AFTER_STATEMENT" 
+AFTER UPDATE ON VAN
+DECLARE
+  CURSOR c IS
+    SELECT ISBN, ID, KESZLET
+    FROM VAN
+    WHERE KESZLET < 1;
+BEGIN
+  FOR r IN c LOOP
+    DELETE FROM VAN WHERE ISBN = r.ISBN AND ID = r.ID AND KESZLET = r.KESZLET;
+  END LOOP;
+END;
+
+/
+ALTER TRIGGER "DELETE_IF_STOCK_LOW_AFTER_STATEMENT" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger PREVENT_DELETE_SHOP_MANAGER
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "PREVENT_DELETE_SHOP_MANAGER" 
+BEFORE DELETE ON felhasznalo
+FOR EACH ROW
+BEGIN
+    IF :OLD.szerepkor = 'uzletvezeto' THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Üzletvezetői fiókot nem lehet törölni!');
+    END IF;
+END;
+/
+ALTER TRIGGER "PREVENT_DELETE_SHOP_MANAGER" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger SET_VIP_STATUS
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "SET_VIP_STATUS" 
+FOR INSERT ON vasarlas
+COMPOUND TRIGGER
+
+  -- Tömb, amelyben eltároljuk az érintett felhasználókat
+  TYPE t_felhasznalok IS TABLE OF vasarlas.felhasznalo%TYPE INDEX BY PLS_INTEGER;
+  v_felhasznalok t_felhasznalok;
+  idx PLS_INTEGER := 0;
+
+  -- Ez a rész minden beszúrt sor után lefut
+  AFTER EACH ROW IS
+  BEGIN
+    idx := idx + 1;
+    v_felhasznalok(idx) := :NEW.felhasznalo;
+  END AFTER EACH ROW;
+
+  -- Ez a rész a beszúrások után egyszer fut le
+  AFTER STATEMENT IS
+  BEGIN
+    FOR i IN 1 .. idx LOOP
+      DECLARE
+        db NUMBER;
+      BEGIN
+        -- Duplikáció elkerülése (több rekordnál is lehet ugyanaz a felhasználó)
+        SELECT COUNT(*) INTO db
+        FROM vasarlas
+        WHERE felhasznalo = v_felhasznalok(i);
+
+        IF db > 3 THEN
+          UPDATE felhasznalo
+          SET torzsvasarlo = 'I'
+          WHERE felhasznalonev = v_felhasznalok(i);
+        END IF;
+      END;
+    END LOOP;
+  END AFTER STATEMENT;
+
+END;
+/
+ALTER TRIGGER "SET_VIP_STATUS" ENABLE;
+--------------------------------------------------------
+--  DDL for Procedure ELLENORIZ_KESZLETET
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "ELLENORIZ_KESZLETET" (
+    isbn_list IN STR_ARRAY,
+    darab_list IN NUM_ARRAY
+)
+IS
+    ossz_keszlet NUMBER;
+BEGIN
+    FOR i IN 1 .. isbn_list.COUNT LOOP
+        SELECT NVL(SUM(KESZLET), 0)
+        INTO ossz_keszlet
+        FROM VAN
+        WHERE ISBN = isbn_list(i);
+
+        IF ossz_keszlet < darab_list(i) THEN
+            RAISE_APPLICATION_ERROR(
+                -20001,
+                'Nincs elegendő készlet a(z) ' || isbn_list(i) || ' könyvből. Csak ' || ossz_keszlet || ' darab van készleten.'
+            );
+        END IF;
+    END LOOP;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure ELLENORIZ_REGISZTRACIO
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "ELLENORIZ_REGISZTRACIO" (
+    p_felhasznalonev       IN FELHASZNALO.FELHASZNALONEV%TYPE,
+    p_email                IN FELHASZNALO.EMAIL%TYPE,
+    p_felhasznalo_letezik  OUT NUMBER,
+    p_email_letezik        OUT NUMBER
+)
+IS
+    v_count NUMBER;
+BEGIN
+    -- Felhasználónév ellenőrzése
+    SELECT COUNT(*) INTO v_count
+    FROM FELHASZNALO
+    WHERE FELHASZNALONEV = p_felhasznalonev;
+
+    IF v_count > 0 THEN
+        p_felhasznalo_letezik := 1;
+    ELSE
+        p_felhasznalo_letezik := 0;
+    END IF;
+
+    -- Email ellenőrzése
+    SELECT COUNT(*) INTO v_count
+    FROM FELHASZNALO
+    WHERE EMAIL = p_email;
+
+    IF v_count > 0 THEN
+        p_email_letezik := 1;
+    ELSE
+        p_email_letezik := 0;
+    END IF;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure FETCH_FILTERED_BOOKS
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "FETCH_FILTERED_BOOKS" (
+    p_search     IN VARCHAR2 DEFAULT NULL,
+    p_min_price  IN NUMBER   DEFAULT NULL,
+    p_max_price  IN NUMBER   DEFAULT NULL,
+    p_genres     IN STR_ARRAY DEFAULT NULL,
+    p_results    OUT SYS_REFCURSOR
+)
+IS
+    v_sql CLOB := '
+        SELECT DISTINCT K.*
+        FROM KONYV K
+        LEFT JOIN MUFAJ M ON K.ID = M.ID
+        WHERE 1=1';
+BEGIN
+    v_sql := v_sql || ' AND (:search IS NULL OR LOWER(K.CIM) LIKE :search)';
+    v_sql := v_sql || ' AND (:minPrice IS NULL OR K.AR >= :minPrice)';
+    v_sql := v_sql || ' AND (:maxPrice IS NULL OR K.AR <= :maxPrice)';
+
+    -- Műfaj szűrés CSAK akkor, ha van megadva
+    v_sql := v_sql || ' AND (
+        :hasGenres = 0 OR LOWER(M.MUFAJ_NEV) IN (SELECT COLUMN_VALUE FROM TABLE(:genres))
+    )';
+
+    OPEN p_results FOR v_sql
+    USING 
+        CASE WHEN p_search IS NOT NULL THEN '%' || LOWER(p_search) || '%' ELSE NULL END,
+        CASE WHEN p_search IS NOT NULL THEN '%' || LOWER(p_search) || '%' ELSE NULL END,
+        p_min_price,
+        p_min_price,
+        p_max_price,
+        p_max_price,
+        CASE WHEN p_genres IS NOT NULL AND p_genres.COUNT > 0 THEN 1 ELSE 0 END,
+        p_genres;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure HOZZAAD_KONYVET_A_RENDELESHEZ
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "HOZZAAD_KONYVET_A_RENDELESHEZ" (
+    p_order_id IN NUMBER,
+    p_isbn IN VARCHAR2
+)
+IS
+BEGIN
+    INSERT INTO VASAROL (ID, ISBN)
+    VALUES (p_order_id, p_isbn);
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure HOZZAAD_VASAROLT_KONYV
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "HOZZAAD_VASAROLT_KONYV" (
+    p_order_id IN NUMBER,
+    p_isbn     IN VARCHAR2,
+    p_darab    IN NUMBER
+)
+IS
+BEGIN
+    INSERT INTO VASAROL (ID, ISBN, DARAB)
+    VALUES (p_order_id, p_isbn, p_darab);
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure KESZLET_CSOKKENT
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "KESZLET_CSOKKENT" (
+    p_isbn IN VARCHAR2,
+    p_darab IN NUMBER
+)
+IS
+    v_maradek NUMBER := p_darab;
+BEGIN
+    FOR r IN (
+        SELECT ID, KESZLET 
+        FROM VAN 
+        WHERE ISBN = p_isbn AND KESZLET > 0
+        ORDER BY KESZLET DESC
+    ) LOOP
+        EXIT WHEN v_maradek = 0;
+
+        IF r.KESZLET >= v_maradek THEN
+            UPDATE VAN
+            SET KESZLET = KESZLET - v_maradek
+            WHERE ISBN = p_isbn AND ID = r.ID;
+            v_maradek := 0;
+        ELSE
+            UPDATE VAN
+            SET KESZLET = 0
+            WHERE ISBN = p_isbn AND ID = r.ID;
+            v_maradek := v_maradek - r.KESZLET;
+        END IF;
+    END LOOP;
+
+    -- Később: ha v_maradek > 0, akkor nincs elég készlet => hibakezelés ide jöhet majd
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure LETREHOZ_VASARLAS
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "LETREHOZ_VASARLAS" (
+    p_username     IN VARCHAR2,
+    p_address      IN VARCHAR2,
+    p_amount       IN NUMBER,
+    p_order_id     OUT NUMBER
+)
+IS
+BEGIN
+    INSERT INTO VASARLAS (FELHASZNALO, SZALLITASI_CIM, OSSZEG, DATUM)
+    VALUES (p_username, p_address, p_amount, SYSDATE)
+    RETURNING ID INTO p_order_id;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure REGISZTRAL_FELHASZNALO
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "REGISZTRAL_FELHASZNALO" (
+    p_felhasznalonev IN FELHASZNALO.FELHASZNALONEV%TYPE,
+    p_email          IN FELHASZNALO.EMAIL%TYPE,
+    p_nev            IN FELHASZNALO.NEV%TYPE,
+    p_lakcim         IN FELHASZNALO.LAKCIM%TYPE,
+    p_telefon        IN FELHASZNALO.TELEFON%TYPE,
+    p_jelszo         IN FELHASZNALO.JELSZO%TYPE
+)
+IS
+BEGIN
+    INSERT INTO FELHASZNALO (
+        FELHASZNALONEV, EMAIL, NEV, SZEREPKOR,
+        LAKCIM, TELEFON, JELSZO, TORZSVASARLO
+    ) VALUES (
+        p_felhasznalonev, p_email, p_nev, 'felhasznalo',
+        p_lakcim, p_telefon, p_jelszo, 'N'
+    );
+END;
+
+/
 --------------------------------------------------------
 --  Constraints for Table SZEREZ
 --------------------------------------------------------
@@ -388,6 +785,7 @@ Insert into VASAROL (ID,ISBN) values ('5','978-963-405-987-6');
 
   ALTER TABLE "VASAROL" MODIFY ("ID" NOT NULL ENABLE);
   ALTER TABLE "VASAROL" MODIFY ("ISBN" NOT NULL ENABLE);
+  ALTER TABLE "VASAROL" MODIFY ("DARAB" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table MUFAJ
 --------------------------------------------------------
