@@ -70,7 +70,6 @@
         <a href="authors.php">Kiadók</a>
         <a href="shops.php">Áruházak</a>
         <a href="#">Statisztikák</a>
-        <a href="stock.php">Raktárkészlet</a>
     </div>
 
     <div id="content">
