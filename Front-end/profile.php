@@ -71,7 +71,7 @@ oci_close($conn);
     
             <div class="profileform-group">
                 <label for="member">Törzsvásárló</label>
-                <input type="text" name="member" id="member" value="<?= $user['TORZSVASARLO'] == 'Y' ? 'Igen' : 'Nem' ?>" readonly>
+                <input type="text" name="member" id="member" value="<?= $user['TORZSVASARLO'] == 'I' ? 'Igen' : 'Nem' ?>" readonly>
             </div>
         </div>
     

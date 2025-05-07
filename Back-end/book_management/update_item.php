@@ -7,12 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($isbn)) {
         if ($quantity > 0) {
-            $_SESSION['cart'][$isbn] = $quantity; // mennyiség módosítása
+            $_SESSION['cart'][$isbn] = $quantity;
         } else {
-            unset($_SESSION['cart'][$isbn]); // ha 0 vagy kevesebb, töröljük
+            unset($_SESSION['cart'][$isbn]);
         }
     }
 }
 
-header("Location: ../../Front-end/basket.php"); // ha back-endből hívod
+header("Location: ../../Front-end/basket.php");
 exit;
