@@ -12,7 +12,6 @@ function fetchBooks(bool $toPrint = false, array $filter = []) {
         $maxPrice = $filter["price"][1];
     }
 
-    // STR_ARRAY típus használata
     $genreArray = oci_new_collection($conn, 'STR_ARRAY');
     if (!$genreArray) {
         die("Nem sikerült létrehozni a STR_ARRAY típusú collection-t.");
@@ -73,7 +72,7 @@ function fetchBooks(bool $toPrint = false, array $filter = []) {
 }
 
 function fetchGenres(bool $toPrint = false) {
-    include __DIR__ . "/../connect.php"; // Helyes útvonal meghatározása
+    include __DIR__ . "/../connect.php";
 
     $query = "SELECT * FROM MUFAJ ORDER BY MUFAJ_NEV";
     $stid = oci_parse($conn, $query);

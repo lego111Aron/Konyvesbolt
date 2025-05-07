@@ -94,7 +94,7 @@ foreach ($booksInCart as $book) {
 
     <div id="order-container">
         <h2>Rendelés véglegesítése</h2>
-        <form action="order.php" method="POST">
+        <form action="../Back-End/book_management/order.php" method="POST">
 
             <div id="price">Végösszeg: <b><?= htmlspecialchars($totalPrice) ?> Ft</b></div>
             <label for="address">Szállítási cím:</label>

@@ -15,14 +15,12 @@ $newPassword = $_POST['password']; // opcionális
 
 include __DIR__ . "/../connect.php";
 
-// Jelenlegi adatok lekérése
 $query = "SELECT * FROM FELHASZNALO WHERE FELHASZNALONEV = :username";
 $stmt = oci_parse($conn, $query);
 oci_bind_by_name($stmt, ":username", $username);
 oci_execute($stmt);
 $currentUser = oci_fetch_assoc($stmt);
 
-// Email ellenőrzés
 if ($newEmail !== $currentUser['EMAIL']) {
     $checkEmailQuery = "SELECT COUNT(*) AS CNT FROM FELHASZNALO WHERE EMAIL = :email AND FELHASZNALONEV != :username";
     $checkStmt = oci_parse($conn, $checkEmailQuery);
@@ -42,7 +40,6 @@ if ($newEmail !== $currentUser['EMAIL']) {
     oci_free_statement($checkStmt);
 }
 
-// Változások ellenőrzése
 $changes = false;
 $updatePassword = false;
 
@@ -77,7 +74,6 @@ if ($changes) {
     oci_bind_by_name($updateStmt, ":username", $username);
     oci_execute($updateStmt);
 
-    // Session frissítése, ha az email megváltozott és tárolva van benne
     if (isset($_SESSION['email']) && $newEmail !== $currentUser['EMAIL']) {
         $_SESSION['email'] = $newEmail;
     }

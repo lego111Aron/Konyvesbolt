@@ -16,16 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $jelszo = $_POST['JELSZO'];
     $jelszo_ujra = $_POST['JELSZO_UJRA'];
 
-    // Ellenőrzés: Jelszó és Jelszó újra megegyeznek-e
     if ($jelszo !== $jelszo_ujra) {
         echo "<script>alert('A két jelszó nem egyezik meg!'); history.back();</script>";
         exit;
     }
 
-    // Jelszó hash-elése
     $jelszo_hashed = password_hash($jelszo, PASSWORD_DEFAULT);
 
-    // 1. lépés: külön ellenőrzés felhasználónévre és emailre
     $ellenorzes_stmt = oci_parse($conn, "BEGIN ELLENORIZ_REGISZTRACIO(:fnev, :email, :felh_letezik, :email_letezik); END;");
     oci_bind_by_name($ellenorzes_stmt, ":fnev", $felhasznalonev);
     oci_bind_by_name($ellenorzes_stmt, ":email", $email);
@@ -48,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // 2. lépés: regisztráció
     $stmt = oci_parse($conn, "BEGIN REGISZTRAL_FELHASZNALO(:fnev, :email, :nev, :lakcim, :tel, :jelszo); END;");
     oci_bind_by_name($stmt, ":fnev", $felhasznalonev);
     oci_bind_by_name($stmt, ":email", $email);
