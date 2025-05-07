@@ -20,15 +20,13 @@
 
         $user = oci_fetch_assoc($stid);
         if ($user && password_verify($password, $user["JELSZO"])) {
-            // Sikeres bejelentkezes: session létrehozása
+
             $_SESSION["username"] = $user["FELHASZNALONEV"];
             $_SESSION["email"] = $email;
 
-            // Átirányítás az index.php oldalra
             header("Location: ../../Front-end/index.php");
             exit;
         } else {
-            // Hibás bejelentkezési adatok
             echo "<script>alert('Hibás bejelentkezési adatok!'); history.back();</script>";
             exit;
         }

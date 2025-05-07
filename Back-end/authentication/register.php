@@ -1,59 +1,69 @@
 <?php
-    include "../connect.php";
-    include "test.php";
+include "../connect.php";
+include "base.php";
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $name = substr(trim($_POST["NEV"] ?? ''), 0, 100);
-        $email = substr(trim($_POST["EMAIL"] ?? ''), 0, 320);
-        $username = substr(trim($_POST["FELHASZNALONEV"] ?? ''), 0, 50);
-        $password = substr(trim($_POST["JELSZO"] ?? ''), 0, 100);
-        $phone = substr(trim($_POST["TELEFON"] ?? ''), 0, 20);
-        $address = substr(trim($_POST["LAKCIM"] ?? ''), 0, 255);
-        $member = 'N';
+if (!$conn) {
+    $e = oci_error();
+    die("Sikertelen kapcsolódás: " . $e['message']);
+}
 
-        // Ellenőrzés: minden mező ki van töltve
-/*         if (empty($name) || empty($email) || empty($username) || empty($password) || empty($phone) || empty($address)) {
-            echo "<script>alert('Hiányzó adatok!'); history.back();</script>";
-            exit;
-        } */
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $felhasznalonev = $_POST['FELHASZNALONEV'];
+    $email = $_POST['EMAIL'];
+    $nev = $_POST['NEV'];
+    $lakcim = $_POST['LAKCIM'];
+    $telefon = $_POST['TELEFON'];
+    $jelszo = $_POST['JELSZO'];
+    $jelszo_ujra = $_POST['JELSZO_UJRA'];
 
-        // Felhasználónév ellenőrzése
-        $existingUsers = fetchUsers();
-        foreach ($existingUsers as $user) {
-            if (strcasecmp($user["Username"], $username) === 0) {
-                echo "<script>alert('Ez a felhasználónév már foglalt!'); history.back();</script>";
-                exit;
-            }
-            if (strcasecmp($user["Email"], $email) === 0) {
-                echo "<script>alert('Ez az emailcím már regisztrálva van!'); history.back();</script>";
-                exit;
-            }
-        }
-
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-        $query = "INSERT INTO FELHASZNALO (FELHASZNALONEV, EMAIL, NEV, SZEREPKOR, LAKCIM, TELEFON, JELSZO, TORZSVASARLO) 
-                  VALUES (:username, :email, :name, 'felhasznalo', :address, :phone, :password, :member)";
-        $stid = oci_parse($conn, $query);
-
-        oci_bind_by_name($stid, ":name", $name);
-        oci_bind_by_name($stid, ":email", $email);
-        oci_bind_by_name($stid, ":username", $username);
-        oci_bind_by_name($stid, ":password", $hashed_password);
-        oci_bind_by_name($stid, ":phone", $phone);
-        oci_bind_by_name($stid, ":address", $address);
-        oci_bind_by_name($stid, ":member", $member);
-
-        if (oci_execute($stid)) {
-            header("Location: ../../Front-end/login.php");
-            exit;
-        } else {
-            $error = oci_error($stid);
-            echo "<script>alert('Hiba történt: " . htmlspecialchars($error['message']) . "'); history.back();</script>";
-        }
-
-        oci_free_statement($stid);
+    if ($jelszo !== $jelszo_ujra) {
+        echo "<script>alert('A két jelszó nem egyezik meg!'); history.back();</script>";
+        exit;
     }
 
+    $jelszo_hashed = password_hash($jelszo, PASSWORD_DEFAULT);
+
+    $ellenorzes_stmt = oci_parse($conn, "BEGIN ELLENORIZ_REGISZTRACIO(:fnev, :email, :felh_letezik, :email_letezik); END;");
+    oci_bind_by_name($ellenorzes_stmt, ":fnev", $felhasznalonev);
+    oci_bind_by_name($ellenorzes_stmt, ":email", $email);
+    oci_bind_by_name($ellenorzes_stmt, ":felh_letezik", $felh_letezik, 1);
+    oci_bind_by_name($ellenorzes_stmt, ":email_letezik", $email_letezik, 1);
+
+    oci_execute($ellenorzes_stmt);
+    oci_free_statement($ellenorzes_stmt);
+
+    if ($felh_letezik == 1 || $email_letezik == 1) {
+        $hiba = "";
+        if ($felh_letezik == 1) {
+            $hiba .= "A megadott felhasználónév már létezik. ";
+        }
+        if ($email_letezik == 1) {
+            $hiba .= "A megadott email-cím már létezik.";
+        }
+        echo "<script>alert('$hiba'); history.back();</script>";
+        oci_close($conn);
+        exit;
+    }
+
+    $stmt = oci_parse($conn, "BEGIN REGISZTRAL_FELHASZNALO(:fnev, :email, :nev, :lakcim, :tel, :jelszo); END;");
+    oci_bind_by_name($stmt, ":fnev", $felhasznalonev);
+    oci_bind_by_name($stmt, ":email", $email);
+    oci_bind_by_name($stmt, ":nev", $nev);
+    oci_bind_by_name($stmt, ":lakcim", $lakcim);
+    oci_bind_by_name($stmt, ":tel", $telefon);
+    oci_bind_by_name($stmt, ":jelszo", $jelszo_hashed);
+
+    $result = oci_execute($stmt);
+
+    if ($result) {
+        header("Location: ../../Front-end/login.php");
+        exit;
+    } else {
+        $e = oci_error($stmt);
+        echo "Hiba történt: " . $e['message'];
+    }
+
+    oci_free_statement($stmt);
     oci_close($conn);
+}
 ?>

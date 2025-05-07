@@ -1,0 +1,46 @@
+#content{
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+table {
+    background-color: transparent;
+    border-collapse: collapse;
+    width: 90%;
+    margin: 20px auto;
+}
+th, td {
+    width:35% !important;
+    text-align: left;
+    border: 2px solid #504B14 ;
+    padding: 8px;
+}
+th{
+    text-align: center;
+    background-color: #504B14;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    
+}
+th:nth-child(3) { width: 20% !important; }
+td:nth-child(4) { width: 10% !important; text-align: center !important; }
+input[type="number"] {
+    width:80%;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+button{
+    display: block;
+    background-color: rgb(130, 237, 130);
+    width: 80px;
+    margin: auto;
+    border: 2px solid green;
+    color: green;
+    border-radius: 10px;
+    height: 30px;
+}
+button:hover{
+    border: 2px solid #024006;
+}

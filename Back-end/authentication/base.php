@@ -1,10 +1,10 @@
 <?php
     function fetchUsers(bool $toPrint = false) {
-        include "../connect.php";
+        include __DIR__ . "/../connect.php";
 
         $query = "SELECT * FROM FELHASZNALO";
-        $stid = oci_parse($conn, $query);  // A lekérdezés előkészítése
-        oci_execute($stid);  // A lekérdezés végrehajtása
+        $stid = oci_parse($conn, $query);
+        oci_execute($stid);
 
         $results = [];
         if ($stid) {
@@ -39,15 +39,16 @@
             }
         }
 
-        // Kapcsolat bezárása
         oci_free_statement($stid);
         oci_close($conn);
 
         return $results;
     }
 
-    function sessionTest(bool $toPrint=false) {
-        session_start();
+    function sessionTest(bool $toPrint=false, bool $maintainSession=true) {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
         if (isset($_SESSION["username"])) {
             if ($toPrint) {
@@ -66,12 +67,27 @@
 
             return false;
         }
+
+        if (!$maintainSession) {
+            session_unset();
+            session_destroy();
+        }
     }
 
-    sessionTest(true);
+    function printAllSessionData() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-    // echo "<pre>";
-    // print_r(fetchUsers());
-    // echo "</pre>";
-    fetchUsers(true);
+        echo "<br>----------------<br>";
+        echo "Session Data:<br>";
+        foreach ($_SESSION as $key => $value) {
+            if (is_array($value)) {
+                echo $key . ": " . json_encode($value) . "<br>";
+            } else {
+                echo $key . ": " . $value . "<br>";
+            }
+        }
+        echo "----------------<br>";
+    }
 ?>

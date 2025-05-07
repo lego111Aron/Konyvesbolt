@@ -8,6 +8,7 @@ $tns = "
         (SID = orania2)
     )
 )";
+
 $conn = oci_connect('C##O4005C', 'Adatbalapu123', $tns, 'UTF8');
 
 if (!$conn) {
