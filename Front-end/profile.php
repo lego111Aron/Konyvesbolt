@@ -74,9 +74,21 @@ oci_close($conn);
                 <input type="text" name="member" id="member" value="<?= $user['TORZSVASARLO'] == 'I' ? 'Igen' : 'Nem' ?>" readonly>
             </div>
         </div>
-    
-        <button type="submit">Mentés</button>
+
+        <div class="profileform-button-container">
+            <button type="submit" id="mentes">Mentés</button>
+            <button type="button" id="kijelentkezes">Kijelentkezés</button>         
+        </div>
+        <p><a href="../Back-end/authentication/delete_user.php" onclick="return confirm('Biztosan törölni szeretné a fiókját?')">Fiók törlése</a></p>
     </form>
+
+        <!-- Korábbi vásárlások -->
+
+    <script>
+        document.getElementById("kijelentkezes").addEventListener("click", () => {
+            window.location.href = "../Back-End/authentication/logout.php";
+        });
+    </script>
 
 </body>
 </html>
