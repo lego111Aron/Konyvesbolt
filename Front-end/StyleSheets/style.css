@@ -378,7 +378,7 @@ td{
     width: 97%;
     appearance: none;
     height: 6px;
-    background: var(--background-color);
+    background: transparent;
     border-radius: 3px;
     outline: none;
 }
@@ -387,9 +387,16 @@ td{
     appearance: none;
     width: 18px;
     height: 18px;
+    margin-top: -6px;
     border-radius: 50%;
     background: #3c370d;
     cursor: pointer;
+}
+
+.arszuro input[type=range]::-webkit-slider-runnable-track {
+    height: 6px;
+    background: #3c370d;
+    border-radius: 3px;
 }
 
 .arszuro input[type=range]::-moz-range-thumb {
@@ -465,6 +472,12 @@ td{
     margin-bottom: 20px;
 }
 
+.profile-form-container a{
+    font-size: larger;
+    color: red;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+}
+
 .profileform-group {
     margin-bottom: 15px;
 }
@@ -489,8 +502,15 @@ td{
 }
 
 
+.profileform-button-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    
+}
+
+
 .profile-form-container button {
-    flex-basis: 48%;
     background: var(--oliveDarb-color);
     color: var(--beige-color);
     height: 40px;
@@ -498,12 +518,15 @@ td{
     border: 0;
     outline: 0;
     cursor: pointer;
-    min-width: 100px;
 }
 
 .profile-form-container button:hover {
     background: #3F3A2C;
 }
+
+
+
+
 /* Áruházak oldal ÉS kiadók oldal lista */
 
 .store-container h1{
@@ -619,4 +642,53 @@ td{
 .kosarba-gomb:hover {
     background-color: #2e2b0a; /* Sötétebb árnyalat hover állapotban */
     transform: scale(1.05); /* Enyhe nagyítás hover állapotban */
+}
+
+.vasarlasok-container {
+    background: var(--sage-color);
+    padding: 40px 60px 40px 60px;
+    margin: 40px auto 0 auto;
+    border-radius: 10px;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+}
+
+.vasarlasok-container h2 {
+    color: var(--oliveDarb-color);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.vasarlas {
+    background: var(--beige-color);
+    border-radius: 10px;
+    margin-bottom: 25px;
+    padding: 20px 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.vasarlas-fejlec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--oliveDarb-color);
+    font-weight: bold;
+}
+
+.vasarolt-konyvek strong {
+    color: var(--oliveDarb-color);
+    font-size: 15px;
+}
+
+.vasarolt-konyvek ul {
+    margin: 8px 0 0 20px;
+    padding: 0;
+}
+
+.vasarolt-konyvek li {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 2px;
 }

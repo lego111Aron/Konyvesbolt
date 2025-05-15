@@ -103,4 +103,55 @@ function fetchGenres(bool $toPrint = false) {
 
     return $results;
 }
+
+function fetchUserPurchases(string $username): array {
+    include __DIR__ . "/../connect.php";
+
+    $query = "
+        SELECT
+            v.ID AS VASARLAS_ID,
+            v.DATUM,
+            v.OSSZEG,
+            k.CIM,
+            k.ISBN,
+            vas.DARAB
+        FROM
+            VASARLAS v
+        JOIN VASAROL vas ON v.ID = vas.ID
+        JOIN KONYV k ON vas.ISBN = k.ISBN
+        WHERE
+            v.FELHASZNALO = :username
+        ORDER BY v.DATUM DESC
+    ";
+
+    $stid = oci_parse($conn, $query);
+    oci_bind_by_name($stid, ":username", $username);
+    oci_execute($stid);
+
+    $purchases = [];
+
+    while ($row = oci_fetch_assoc($stid)) {
+        $id = $row['VASARLAS_ID'];
+
+        if (!isset($purchases[$id])) {
+            $purchases[$id] = [
+                'date' => $row['DATUM'],
+                'total' => $row['OSSZEG'],
+                'books' => []
+            ];
+        }
+
+        $title = $row['CIM'];
+        $count = $row['DARAB'];
+
+        $purchases[$id]['books'][] = $title . ($count > 1 ? " ({$count} db)" : "");
+        // $purchases[$id]['books'][] = $title . $count;
+    }
+
+    oci_free_statement($stid);
+    oci_close($conn);
+
+    return $purchases;
+}
+
 ?>
