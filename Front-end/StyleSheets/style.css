@@ -378,7 +378,7 @@ td{
     width: 97%;
     appearance: none;
     height: 6px;
-    background: var(--background-color);
+    background: transparent;
     border-radius: 3px;
     outline: none;
 }
@@ -387,9 +387,16 @@ td{
     appearance: none;
     width: 18px;
     height: 18px;
+    margin-top: -6px;
     border-radius: 50%;
     background: #3c370d;
     cursor: pointer;
+}
+
+.arszuro input[type=range]::-webkit-slider-runnable-track {
+    height: 6px;
+    background: #3c370d;
+    border-radius: 3px;
 }
 
 .arszuro input[type=range]::-moz-range-thumb {
@@ -465,6 +472,12 @@ td{
     margin-bottom: 20px;
 }
 
+.profile-form-container a{
+    font-size: larger;
+    color: red;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+}
+
 .profileform-group {
     margin-bottom: 15px;
 }
@@ -489,8 +502,15 @@ td{
 }
 
 
+.profileform-button-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    
+}
+
+
 .profile-form-container button {
-    flex-basis: 48%;
     background: var(--oliveDarb-color);
     color: var(--beige-color);
     height: 40px;
@@ -498,12 +518,15 @@ td{
     border: 0;
     outline: 0;
     cursor: pointer;
-    min-width: 100px;
 }
 
 .profile-form-container button:hover {
     background: #3F3A2C;
 }
+
+
+
+
 /* Áruházak oldal ÉS kiadók oldal lista */
 
 .store-container h1{
