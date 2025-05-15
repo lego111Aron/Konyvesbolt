@@ -1,5 +1,6 @@
 <?php
 include "../Back-End/authentication/base.php";
+include "../Back-End/book_management/base.php";
 
 // Ellenőrizzük, hogy van-e bejelentkezett felhasználó
 if (!sessionTest()) {
@@ -82,7 +83,34 @@ oci_close($conn);
         <p><a href="../Back-end/authentication/delete_user.php" onclick="return confirm('Biztosan törölni szeretné a fiókját?')">Fiók törlése</a></p>
     </form>
 
-        <!-- Korábbi vásárlások -->
+    <?php
+        $purchases = fetchUserPurchases($username);
+    ?>
+
+    <div class="vasarlasok-container">
+        <h2>Korábbi vásárlásaid</h2>
+
+        <?php if (empty($purchases)): ?>
+            <p>Még nem történt vásárlás.</p>
+        <?php else: ?>
+            <?php foreach ($purchases as $purchase): ?>
+                <div class="vasarlas">
+                    <div class="vasarlas-fejlec">
+                        <span class="vasarlas-datum"><?= htmlspecialchars($purchase['date']) ?></span>
+                        <span class="vasarlas-osszeg">Összeg: <?= number_format($purchase['total'], 0, ',', ' ') ?> Ft</span>
+                    </div>
+                    <div class="vasarolt-konyvek">
+                        <strong>Vásárolt könyvek:</strong>
+                        <ul>
+                            <?php foreach ($purchase['books'] as $book): ?>
+                                <li><?= htmlspecialchars($book) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
 
     <script>
         document.getElementById("kijelentkezes").addEventListener("click", () => {

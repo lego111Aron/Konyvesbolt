@@ -14,14 +14,16 @@
     <?php include "header.php"; ?>
 
     <!-- <h2><a href="profile.php">Profil info szerkesztése oldal</a></h2> -->
-    <h1>Admin Funkciók:</h1>
-    <h2><a href="admin.php">Műfajok + áruházak kezelése</a></h2>
-    <h2><a href="bookregister.php">Könyvek + kiadók kezelése</a></h2>
+    <div style="display: <?php echo isAdmin() ? 'block' : 'none' ?>;">
+        <h1>Admin Funkciók:</h1>
+        <h2><a href="admin.php">Műfajok + áruházak kezelése</a></h2>
+        <h2><a href="bookregister.php">Könyvek + kiadók kezelése</a></h2>
+        
+        <h2><a href="../Back-end/authentication/logout.php">Kijelentkezés</a></h2>    
+        <h2><a href="../Back-end/authentication/delete_user.php" onclick="return confirm('Biztosan törölni szeretné a fiókját?')">Fiók törlése</a></h2>
+        <h2><a href="../Back-end/authentication/print.php">Felhasználók</a></h2>
+    </div>
     
-    <h2><a href="../Back-end/authentication/logout.php">Kijelentkezés</a></h2>    
-    <h2><a href="../Back-end/authentication/delete_user.php" onclick="return confirm('Biztosan törölni szeretné a fiókját?')">Fiók törlése</a></h2>
-    <h2><a href="../Back-end/authentication/print.php">Felhasználók</a></h2>
-
     <h1>Legtöbbet eladott könyveink</h1><br>
     <div id="bestsellers-container">
       
