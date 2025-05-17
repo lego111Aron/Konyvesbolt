@@ -56,7 +56,11 @@
                 echo "Bejelentkezett felhasználó: " . $_SESSION["username"];
                 if ($toPrint) echo "<br>----------------<br>";
             }
-                
+            
+            if (!$maintainSession) {
+                session_unset();
+                session_destroy();
+            }
             return true;
         } else {
             if ($toPrint) {
@@ -65,13 +69,26 @@
                 if ($toPrint) echo "<br>----------------<br>";
             }
 
+            if (!$maintainSession) {
+                session_unset();
+                session_destroy();
+            }            
             return false;
         }
+    }
 
+    function isAdmin(bool $maintainSession=true) : bool {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $result = (isset($_SESSION["admin"]) && $_SESSION["admin"] === true);
         if (!$maintainSession) {
             session_unset();
             session_destroy();
         }
+
+        return $result;
     }
 
     function printAllSessionData() {

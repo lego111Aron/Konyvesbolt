@@ -23,6 +23,10 @@
 
             $_SESSION["username"] = $user["FELHASZNALONEV"];
             $_SESSION["email"] = $email;
+            if ($user["FELHASZNALONEV"] == "admin")
+                $_SESSION["admin"] = true;
+            else
+                $_SESSION["admin"] = false;
 
             header("Location: ../../Front-end/index.php");
             exit;
