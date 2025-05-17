@@ -112,9 +112,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             oci_free_statement($stockProc);
         }
 
-        oci_close($conn);
-        unset($_SESSION["cart"]);
-        echo "<script>alert('A rendelés sikeresen leadva!'); window.location.href='../../Front-end/books.php';</script>";
+        require_once "../invoice/generate_invoice.php";
+        $pdfFilename = generateInvoicePDF($orderId, $username, $address, $cart, $conn);
+        $pdfUrl = "../../Back-End/invoice/pdf/" . $pdfFilename;
+
+        $pdfUrlEncoded = urlencode($pdfUrl);
+        echo "<script>
+            window.location.href = '../../Front-end/thankyou.php?pdf=$pdfUrlEncoded';
+        </script>";
         exit();
     } else {
         $e = oci_error($proc);
