@@ -73,6 +73,7 @@ $books = fetchBooks(false, $filter);
             <div class="konyvek">
                 <?php foreach ($books as $book): ?>
                     <div class="konyv">
+                         <img class="book_img" src="../Back-end/img/<?= htmlspecialchars($book['ISBN']) ?>.jpg" alt="">
                         <h3><?= htmlspecialchars($book['Title']) ?></h3>
                         <p><strong>ISBN:</strong> <?= htmlspecialchars($book['ISBN']) ?></p>
                         <p><strong>Ár:</strong> <?= htmlspecialchars($book['Price']) ?> Ft</p>

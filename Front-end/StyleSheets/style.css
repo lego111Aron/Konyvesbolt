@@ -253,6 +253,10 @@ td{
 .admin_print_element a:hover{
     background-color: rgb(221, 220, 220);
 }
+.book_img{
+    width: 100px;
+    height: auto;
+}
 
 #book-table th{
     width: 20%;
