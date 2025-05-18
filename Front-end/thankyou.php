@@ -8,10 +8,21 @@ $pdfUrl = isset($_GET["pdf"]) ? $_GET["pdf"] : "";
 <head>
     <meta charset="UTF-8">
     <title>Köszönjük a rendelést!</title>
+    <link rel="stylesheet" href="StyleSheets/style.css">
 </head>
-<body>
-    <h1>Köszönjük a vásárlást!</h1>
-    <p>A számla hamarosan megnyílik. Ha nem, <a href="<?php echo htmlspecialchars($pdfUrl); ?>" target="_blank">kattints ide a megnyitáshoz</a>.</p>
+<body id="thankyouBody">
+
+    <!-- Fejléc és menü -->
+    <?php include "header.php"; ?>
+
+    <div class="thankyou-container">
+        <h1>Köszönjük a vásárlást!</h1>
+        <p class="thankyou-message">
+            A számla hamarosan megnyílik.<br>
+            Ha nem, <a href="<?php echo htmlspecialchars($pdfUrl); ?>" target="_blank" class="thankyou-link">kattints ide a megnyitáshoz</a>.
+        </p>
+        <p class="thankyou-redirect">Néhány másodperc múlva visszairányítunk a könyvek oldalára.</p>
+    </div>
 
     <script>
         window.onload = function() {
@@ -19,7 +30,6 @@ $pdfUrl = isset($_GET["pdf"]) ? $_GET["pdf"] : "";
             if (pdfUrl) {
                 window.open(pdfUrl, "_blank");
             }
-            // opcionális: automatikus visszairányítás pár másodperc múlva
             setTimeout(() => {
                 window.location.href = "../../Front-end/books.php";
             }, 5000);

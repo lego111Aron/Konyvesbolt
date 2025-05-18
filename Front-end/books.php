@@ -73,9 +73,9 @@ $books = fetchBooks(false, $filter);
             <div class="konyvek">
                 <?php foreach ($books as $book): ?>
                     <div class="konyv">
-                         <img class="book_img" src="../Back-end/img/<?= htmlspecialchars($book['ISBN']) ?>.jpg" alt="">
                         <h3><?= htmlspecialchars($book['Title']) ?></h3>
                         <p><strong>ISBN:</strong> <?= htmlspecialchars($book['ISBN']) ?></p>
+                        <img class="book_img" src="../Back-end/img/<?= htmlspecialchars($book['ISBN']) ?>.jpg" alt="">
                         <p><strong>Ár:</strong> <?= htmlspecialchars($book['Price']) ?> Ft</p>
                         <p><strong>Oldalak száma:</strong> <?= htmlspecialchars($book['Pages']) ?></p>
                         <p><strong>Kiadás dátuma:</strong> <?= htmlspecialchars($book['PublicationDate']) ?></p>
