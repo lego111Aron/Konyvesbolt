@@ -696,3 +696,46 @@ td{
     color: #333;
     margin-bottom: 2px;
 }
+
+#thankyouBody {
+    background: var(--beige-color);
+    min-height: 100vh;
+}
+
+.thankyou-container {
+    max-width: 500px;
+    margin: 60px auto 0 auto;
+    background: var(--sage-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 40px 30px 30px 30px;
+    text-align: center;
+}
+
+.thankyou-container h1 {
+    color: var(--oliveDarb-color);
+    margin-bottom: 18px;
+    font-size: 2rem;
+}
+
+.thankyou-message {
+    font-size: 1.1rem;
+    margin-bottom: 18px;
+    color: #333;
+}
+
+.thankyou-link {
+    color: var(--oliveDarb-color);
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.thankyou-link:hover {
+    color: #3F3A2C;
+}
+
+.thankyou-redirect {
+    color: #666;
+    font-size: 0.95rem;
+    margin-top: 10px;
+}

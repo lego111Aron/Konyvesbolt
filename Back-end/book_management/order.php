@@ -116,10 +116,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $pdfFilename = generateInvoicePDF($orderId, $username, $address, $cart, $conn);
         $pdfUrl = "../../Back-End/invoice/pdf/" . $pdfFilename;
 
-        $pdfUrlEncoded = urlencode($pdfUrl);
-        echo "<script>
-            window.location.href = '../../Front-end/thankyou.php?pdf=$pdfUrlEncoded';
-        </script>";
+        unset($_SESSION["cart"]);
+        header("Location: ../../Front-end/index.php");
         exit();
     } else {
         $e = oci_error($proc);

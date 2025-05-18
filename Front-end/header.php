@@ -17,6 +17,6 @@
     <a href="authors.php">Kiadók</a>
     <a href="shops.php">Áruházak</a>
     <a href="basket.php">Kosár</a>
-    <a href="statistics.php">Statisztikák</a>
+    <a href="statistics.php">Nem tudsz mit olvasni?</a>
     <a href="stock.php">Raktárkészlet</a>
 </div>
